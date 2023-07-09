@@ -1,0 +1,6 @@
+#sidebar-container {
+    width: 35vw;
+    height: 100%;
+    border: 1px solid var(--primaryBorderColor);
+    border-radius: 12px 12px 0 0;
+}
