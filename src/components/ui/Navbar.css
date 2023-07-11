@@ -10,4 +10,11 @@ nav {
 
 #logo {
     user-select: none;
+    font-family: "Arimo", "sans-serif";
+    font-weight: bold;
+}
+
+.test {
+    cursor: pointer;
+    color: var(--primaryIconColor);
 }

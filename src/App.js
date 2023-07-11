@@ -1,11 +1,11 @@
-import Sidebar from "./components/Sidebar";
-import PhonePreview from "./components/PhonePreview";
+import PhonePreview from "./components/ui/PhonePreview";
+import EditingPane from "./components/form/EditingPane";
 
 function App() {
   return (
     <div id="app-container">
       <PhonePreview />
-      <Sidebar />
+      <EditingPane />
     </div>
   );
 }

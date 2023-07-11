@@ -1,9 +1,0 @@
-#phone-container {
-    width: 65vw;
-    display: grid;
-    place-items: center;
-}
-
-img {
-    height: 600px;
-}

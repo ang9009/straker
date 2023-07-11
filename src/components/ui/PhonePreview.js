@@ -1,5 +1,5 @@
 import "./PhonePreview.css";
-import iphone from "../assets/iphone_frame.png";
+import iphone from "../../assets/iphone_frame.png";
 
 const PhonePreview = () => {
   return (

@@ -1,0 +1,15 @@
+#phone-container {
+    width: 65vw;
+    display: grid;
+    place-items: center;
+    user-select: none;
+}
+
+img {
+    height: 600px;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
