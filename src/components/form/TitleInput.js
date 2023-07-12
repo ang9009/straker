@@ -1,10 +1,10 @@
 import "./TitleInput.css";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useLayoutEffect } from "react";
 const TitleInput = ({ title, setTitle }) => {
   const [width, setWidth] = useState(0);
   const span = useRef();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setWidth(span.current.offsetWidth);
   }, [title]);
 
