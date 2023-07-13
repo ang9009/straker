@@ -1,5 +1,4 @@
 // Adapted from SkullCutter02, modified
-
 import { useState } from "react";
 
 const PrimaryButton = ({
@@ -38,13 +37,12 @@ const PrimaryButton = ({
           marginBottom: marginBottom,
           marginLeft: marginLeft,
           marginRight: marginRight,
-          margin: margin,
           background: bgColor,
           borderRadius: borderRadius,
           padding: padding,
           fontWeight: fontWeight,
           cursor: "pointer",
-          transition: "all 0.15" || transition,
+          transition: "all 0.15s" || transition,
         }}
         onMouseEnter={() => {
           hoverColor && setBgColor(hoverColor);
