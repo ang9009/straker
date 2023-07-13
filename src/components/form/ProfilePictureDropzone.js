@@ -14,8 +14,9 @@ const ProfilePictureDropzone = ({ profileImg, setProfileImg }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   // Dropzone
+  const [croppedImg, setCroppedImg] = useState(null);
   const onDrop = useCallback((file) => {
-    setProfileImg(URL.createObjectURL(file[0]));
+    setCroppedImg(URL.createObjectURL(file[0]));
     setIsOpen(true);
   }, []);
 
@@ -36,16 +37,17 @@ const ProfilePictureDropzone = ({ profileImg, setProfileImg }) => {
   );
 
   return (
-    <>
-      {profileImg && (
-        <CropperModal
-          profileImg={profileImg}
-          setProfileImg={setProfileImg}
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-        />
-      )}
+    <div className="dropzone-component-container">
+      <CropperModal
+        profileImg={profileImg}
+        setProfileImg={setProfileImg}
+        croppedImg={croppedImg}
+        setCroppedImg={setCroppedImg}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      />
       <div className="image-and-dropzone-container">
+        <img src={profileImg} alt="" style={{ borderRadius: "50%" }} />
         <div {...getRootProps({ className: "dropzone", style })}>
           <input {...getInputProps()} />
           <FiFile color={"var(--primaryIconColor)"} />
@@ -54,7 +56,7 @@ const ProfilePictureDropzone = ({ profileImg, setProfileImg }) => {
           </p>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

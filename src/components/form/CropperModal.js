@@ -7,20 +7,36 @@ import { useCallback, useState } from "react";
 import PrimaryButton from "../ui/PrimaryButton";
 import getCroppedImg from "../../utils/cropImage";
 
-const CropperModal = ({ profileImg, setProfileImg, isOpen, setIsOpen }) => {
+const CropperModal = ({
+  profileImg,
+  setProfileImg,
+  isOpen,
+  setIsOpen,
+  croppedImg,
+  setCroppedImg,
+}) => {
   // Cropper
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
-  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+  const onCropComplete = useCallback((_, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
-    console.log(croppedAreaPixels);
   }, []);
 
   const applyCrop = async () => {
-    const croppedImgUrl = await getCroppedImg(profileImg, croppedAreaPixels);
+    const croppedImgUrl = await getCroppedImg(croppedImg, croppedAreaPixels);
     setProfileImg(croppedImgUrl);
+  };
+
+  // Modal
+  const handleCancel = () => {
+    setIsOpen(false);
+  };
+
+  const handleApply = () => {
+    applyCrop();
+    setIsOpen(false);
   };
 
   return (
@@ -39,7 +55,7 @@ const CropperModal = ({ profileImg, setProfileImg, isOpen, setIsOpen }) => {
           <div id="cropper-container">
             <Cropper
               cropShape={"round"}
-              image={profileImg}
+              image={croppedImg}
               crop={crop}
               zoom={zoom}
               aspect={1}
@@ -78,7 +94,7 @@ const CropperModal = ({ profileImg, setProfileImg, isOpen, setIsOpen }) => {
           borderRadius={"5px"}
           fontWeight={500}
           marginLeft={"auto"}
-          onClick={() => setIsOpen(false)}
+          onClick={handleCancel}
         />
         <PrimaryButton
           text={"Apply"}
@@ -90,10 +106,7 @@ const CropperModal = ({ profileImg, setProfileImg, isOpen, setIsOpen }) => {
           fontWeight={500}
           marginLeft={"10px"}
           hoverColor={"gray"}
-          onClick={() => {
-            applyCrop();
-            setIsOpen(false);
-          }}
+          onClick={handleApply}
         />
       </div>
     </ReactModal>

@@ -1,9 +1,18 @@
+
+.dropzone-component-container {
+    margin-top: var(--inputMarginTop);
+    height: 50px;
+}
+
 .dropzone {
     padding: 12px 15px;
+    height: 100%;
+    width: 100%;
+    margin-left: 10px;
     border-radius: var(--inputBorderRadius);
-    margin-top: var(--inputMarginTop);
     border: 1px dashed var(--inputBorderColor);
     display: flex;
+    align-items: center;
     cursor: pointer;
     transition: all 0.1s;
 }
@@ -26,4 +35,10 @@
 .image-and-dropzone-container {
     display: flex;
     align-items: center;
+    height: 100%;
+}
+
+.image-and-dropzone-container img {
+    width: auto;
+    height: 100%;
 }

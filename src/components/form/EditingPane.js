@@ -10,7 +10,9 @@ const EditingPane = () => {
   const [title, setTitle] = useState("Untitled run");
 
   // Dropzone
-  const [profileImg, setProfileImg] = useState("../../assets/profile.png");
+  const [profileImg, setProfileImg] = useState(
+    require("../../assets/profile.png")
+  );
 
   return (
     <div id="sidebar-container">
@@ -23,7 +25,6 @@ const EditingPane = () => {
           charLimit={30}
         />
         <ProfileSection profileImg={profileImg} setProfileImg={setProfileImg} />
-        <img src={profileImg} alt="" style={{ borderRadius: "50%" }} />
       </div>
     </div>
   );

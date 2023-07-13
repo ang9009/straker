@@ -7,8 +7,8 @@
   --primaryIconColor: #818181;
   --borderThickness: 1px;
   --inputBorderRadius: 5px;
-  --inputMarginTop: 10px;
-  --inputFontSize: 14px;
+  --inputMarginTop: 20px;
+  --inputFontSize: 15px;
   --iconMarginLeft: 5px;
 }
 
@@ -26,10 +26,10 @@
 
 /* Global form styles */
 .form-section-container {
-  margin-top: 25px;
+  margin-top: 40px;
 }
 .form-section-title {
-  font-size: 14px;
+  font-size: 16px;
   text-transform: uppercase;
   display: flex;
   align-items: center;
