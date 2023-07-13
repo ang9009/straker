@@ -40,7 +40,7 @@ const ProfilePictureInput = ({ profileImg, setProfileImg }) => {
 
   return (
     <>
-      // TODO: move this into a separate component
+      {/*// TODO: move this into a separate component */}
       {profileImg && (
         <ReactModal
           isOpen={profileImg !== "../../assets/profile.png"}
