@@ -1,7 +1,7 @@
 nav {
     height: 50px;
     padding: 20px;
-    border-bottom: 1px solid var(--primaryBorderColor);
+    border-bottom: var(--borderThickness) solid var(--primaryBorderColor);
     display: flex;
     align-items: center;
     justify-content: space-between;

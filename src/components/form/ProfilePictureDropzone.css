@@ -1,0 +1,52 @@
+.dropzone {
+    padding: 12px 15px;
+    border-radius: var(--inputBorderRadius);
+    margin-top: var(--inputMarginTop);
+    border: 1px dashed var(--inputBorderColor);
+    display: flex;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+
+.dropzone p {
+    user-select: none;
+    font-size: var(--inputFontSize);
+    color: #9A9A9A;
+    margin-left: var(--iconMarginLeft);
+}
+
+.dropzone span {
+    color: #35A3E0;
+}
+
+#modal-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+#cropper-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: rgb(85, 82, 82);
+}
+
+.modal-top {
+    height: 80%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.controls {
+    margin-top: 10px;
+    width: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.controls input {
+    width: 80%;
+}

@@ -5,10 +5,12 @@
     font-weight: bolder;
     min-width: 10px;
     padding: 5px;
-    border-radius: 5px;}
+    transform: translateX(-5px);
+    border-radius: var(--inputBorderRadius);
+}
 
 .title-input:hover {
-    outline: 1px solid var(--secondaryBorderColor);
+    outline: 1px solid var(--inputBorderColor);
 }
 
 .title-input:focus {

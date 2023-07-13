@@ -1,10 +1,10 @@
 #sidebar-container {
     width: 35vw;
     height: 100%;
-    border: 1.5px solid var(--primaryBorderColor);
+    border: var(--borderThickness) solid var(--primaryBorderColor);
     border-radius: 12px 0 0 12px;
 }
 
 #form-container {
-    padding: 20px;
+    padding: 25px 20px;
 }

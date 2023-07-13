@@ -1,9 +1,10 @@
 import "./TitleInput.css";
 import { useState, useRef, useLayoutEffect } from "react";
-const TitleInput = ({ title, setTitle }) => {
+const TitleInput = ({ title, setTitle, defaultTitle, charLimit }) => {
   const [width, setWidth] = useState(0);
   const span = useRef();
 
+  // Updates width of input field when typing by using width of hidden span as reference
   useLayoutEffect(() => {
     setWidth(span.current.offsetWidth);
   }, [title]);
@@ -15,18 +16,29 @@ const TitleInput = ({ title, setTitle }) => {
       </span>
       <input
         type="text"
-        placeholder="Untitled run"
         className="title-input"
         value={title}
         onChange={(e) => {
-          if (!(e.target.value.length > 30)) {
+          if (!(e.target.value.length > charLimit)) {
             setTitle(e.target.value);
+          }
+        }}
+        onClick={(e) => {
+          if (e.target.value === defaultTitle) {
+            e.target.select();
+          }
+        }}
+        onBlur={(e) => {
+          if (e.target.value === "") {
+            setTitle(defaultTitle);
           }
         }}
         style={{ width }}
       />
-      {title.length >= 30 && (
-        <p className="error-msg">Maximum character limit reached</p>
+      {title.length >= charLimit && (
+        <p className="error-msg">
+          Maximum character limit reached ({charLimit})
+        </p>
       )}
     </div>
   );
