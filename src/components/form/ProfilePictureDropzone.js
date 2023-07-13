@@ -10,9 +10,13 @@ import {
 import CropperModal from "./CropperModal";
 
 const ProfilePictureDropzone = ({ profileImg, setProfileImg }) => {
+  // Modal
+  const [isOpen, setIsOpen] = useState(false);
+
   // Dropzone
   const onDrop = useCallback((file) => {
     setProfileImg(URL.createObjectURL(file[0]));
+    setIsOpen(true);
   }, []);
 
   const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } =
@@ -34,14 +38,21 @@ const ProfilePictureDropzone = ({ profileImg, setProfileImg }) => {
   return (
     <>
       {profileImg && (
-        <CropperModal profileImg={profileImg} setProfileImg={setProfileImg} />
+        <CropperModal
+          profileImg={profileImg}
+          setProfileImg={setProfileImg}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+        />
       )}
-      <div {...getRootProps({ className: "dropzone", style })}>
-        <input {...getInputProps()} />
-        <FiFile color={"var(--primaryIconColor)"} />
-        <p>
-          <span>Click to upload</span> or drag and drop...
-        </p>
+      <div className="image-and-dropzone-container">
+        <div {...getRootProps({ className: "dropzone", style })}>
+          <input {...getInputProps()} />
+          <FiFile color={"var(--primaryIconColor)"} />
+          <p>
+            <span>Click to upload</span> or drag and drop...
+          </p>
+        </div>
       </div>
     </>
   );

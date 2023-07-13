@@ -18,3 +18,12 @@
 .dropzone span {
     color: #35A3E0;
 }
+
+#profile-preview {
+    border-radius: 50%;
+}
+
+.image-and-dropzone-container {
+    display: flex;
+    align-items: center;
+}

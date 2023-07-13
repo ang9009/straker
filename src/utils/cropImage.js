@@ -1,5 +1,3 @@
-// Adapted from https://github.com/CodingWith-Adam/react-easy-crop-tutorial/blob/main/src/cropImage.js
-
 const createImage = (url) =>
   new Promise((resolve, reject) => {
     const image = new Image();

@@ -1,7 +1,0 @@
-/* TODO: stop being lazy and do this properly + fix transparent backgroudn issue for cancel btn*/
-button {
-    border: none;
-    font-weight: 500;
-    cursor: pointer;
-    margin-left: 10px;
-}

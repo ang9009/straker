@@ -3,21 +3,34 @@ import ReactModal from "react-modal";
 import "./CropperModal.css";
 import { cropperStyles } from "../../data/cropperStyles";
 import { modalStyles } from "../../data/modalStyles";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import PrimaryButton from "../ui/PrimaryButton";
+import getCroppedImg from "../../utils/cropImage";
 
-const CropperModal = ({ profileImg, setProfileImg }) => {
+const CropperModal = ({ profileImg, setProfileImg, isOpen, setIsOpen }) => {
   // Cropper
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+
+  const onCropComplete = useCallback((croppedAreaPixels) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+    console.log(croppedAreaPixels);
+  }, []);
+
+  const applyCrop = async () => {
+    const croppedImgUrl = await getCroppedImg(profileImg, croppedAreaPixels);
+    setProfileImg(croppedImgUrl);
+  };
 
   return (
     <ReactModal
-      isOpen={profileImg !== "../../assets/profile.png"}
+      isOpen={isOpen}
       style={modalStyles}
       closeTimeoutMS={500}
       onRequestClose={() => {
         setProfileImg("../../assets/profile.png");
+        setIsOpen(false);
       }}
     >
       <div className="modal-top">
@@ -27,10 +40,10 @@ const CropperModal = ({ profileImg, setProfileImg }) => {
             <Cropper
               cropShape={"round"}
               image={profileImg}
-              alt={"nope"}
               crop={crop}
               zoom={zoom}
               aspect={1 / 1}
+              onCropComplete={onCropComplete}
               onCropChange={setCrop}
               onZoomChange={setZoom}
               showGrid={false}
@@ -38,7 +51,7 @@ const CropperModal = ({ profileImg, setProfileImg }) => {
             />
           </div>
         </div>
-        {/* Replace with slider component? */}
+        {/* TODO: replace with slider component? */}
         <div className="controls">
           <input
             type="range"
@@ -55,21 +68,31 @@ const CropperModal = ({ profileImg, setProfileImg }) => {
         </div>
       </div>
       <div className="modal-bottom">
-        {/* TODO: stop being lazy and do this properly */}
         <PrimaryButton
           text={"Cancel"}
-          backgroundColor={"none"}
+          background={"none"}
           color={"black"}
           padding={"10px 15px"}
+          border={"none"}
           borderRadius={"5px"}
+          fontWeight={500}
           marginLeft={"auto"}
+          onClick={() => setIsOpen(false)}
         />
         <PrimaryButton
           text={"Apply"}
-          backgroundColor={"black"}
-          color={"#fff"}
+          background={"black"}
+          color={"white"}
           padding={"10px 15px"}
+          border={"none"}
           borderRadius={"5px"}
+          fontWeight={500}
+          marginLeft={"10px"}
+          hoverColor={"gray"}
+          onClick={() => {
+            applyCrop();
+            setIsOpen(false);
+          }}
         />
       </div>
     </ReactModal>
