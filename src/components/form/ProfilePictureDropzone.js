@@ -7,12 +7,9 @@ import {
   acceptStyle,
   rejectStyle,
 } from "../../data/dropzoneStyles";
-import Cropper from "react-easy-crop";
-import ReactModal from "react-modal";
-import { cropperStyles } from "../../data/cropperStyles";
-import { modalStyles } from "../../data/modalStyles";
+import CropperModal from "./CropperModal";
 
-const ProfilePictureInput = ({ profileImg, setProfileImg }) => {
+const ProfilePictureDropzone = ({ profileImg, setProfileImg }) => {
   // Dropzone
   const onDrop = useCallback((file) => {
     setProfileImg(URL.createObjectURL(file[0]));
@@ -34,54 +31,10 @@ const ProfilePictureInput = ({ profileImg, setProfileImg }) => {
     [isFocused, isDragAccept, isDragReject]
   );
 
-  // Cropper
-  const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
-
   return (
     <>
-      {/*// TODO: move this into a separate component */}
       {profileImg && (
-        <ReactModal
-          isOpen={profileImg !== "../../assets/profile.png"}
-          style={modalStyles}
-          closeTimeoutMS={500}
-          onRequestClose={() => {
-            setProfileImg("../../assets/profile.png");
-          }}
-        >
-          <div className="modal-top">
-            <h1 id="modal-title">Edit image</h1>
-            <div id="cropper-container">
-              <Cropper
-                cropShape={"round"}
-                image={profileImg}
-                alt={"nope"}
-                crop={crop}
-                zoom={zoom}
-                aspect={1 / 1}
-                onCropChange={setCrop}
-                onZoomChange={setZoom}
-                showGrid={false}
-                style={cropperStyles}
-              />
-            </div>
-            <div className="controls">
-              <input
-                type="range"
-                value={zoom}
-                min={1}
-                max={3}
-                step={0.1}
-                aria-labelledby="Zoom"
-                onChange={(e) => {
-                  setZoom(e.target.value);
-                }}
-                className="zoom-range"
-              />
-            </div>
-          </div>
-        </ReactModal>
+        <CropperModal profileImg={profileImg} setProfileImg={setProfileImg} />
       )}
       <div {...getRootProps({ className: "dropzone", style })}>
         <input {...getInputProps()} />
@@ -94,4 +47,4 @@ const ProfilePictureInput = ({ profileImg, setProfileImg }) => {
   );
 };
 
-export default ProfilePictureInput;
+export default ProfilePictureDropzone;
