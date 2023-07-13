@@ -23,7 +23,7 @@ const EditingPane = () => {
           charLimit={30}
         />
         <ProfileSection profileImg={profileImg} setProfileImg={setProfileImg} />
-        <img src={profileImg} alt="" />
+        <img src={profileImg} alt="" style={{ borderRadius: "50%" }} />
       </div>
     </div>
   );

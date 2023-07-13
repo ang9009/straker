@@ -1,6 +1,6 @@
 export const modalStyles = {
   content: {
-    position: "relative",
+    // position: "relative",
     width: "40vw",
     height: "75vh",
     top: "50%",

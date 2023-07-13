@@ -13,7 +13,7 @@ const CropperModal = ({ profileImg, setProfileImg, isOpen, setIsOpen }) => {
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
-  const onCropComplete = useCallback((croppedAreaPixels) => {
+  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
     console.log(croppedAreaPixels);
   }, []);
@@ -42,12 +42,13 @@ const CropperModal = ({ profileImg, setProfileImg, isOpen, setIsOpen }) => {
               image={profileImg}
               crop={crop}
               zoom={zoom}
-              aspect={1 / 1}
+              aspect={1}
               onCropComplete={onCropComplete}
               onCropChange={setCrop}
               onZoomChange={setZoom}
               showGrid={false}
               style={cropperStyles}
+              objectFit={"horizontal-cover"}
             />
           </div>
         </div>
