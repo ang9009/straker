@@ -2,7 +2,8 @@ import "./TitleInput.css";
 import { useState, useRef, useLayoutEffect } from "react";
 const TitleInput = ({ title, setTitle, defaultTitle, charLimit }) => {
   const [width, setWidth] = useState(0);
-  const span = useRef();
+  const span = useRef(0);
+  const titleInput = useRef(0);
 
   // Updates width of input field when typing by using width of hidden span as reference
   useLayoutEffect(() => {
@@ -18,6 +19,7 @@ const TitleInput = ({ title, setTitle, defaultTitle, charLimit }) => {
         type="text"
         className="title-input"
         value={title}
+        ref={titleInput}
         onChange={(e) => {
           if (!(e.target.value.length > charLimit)) {
             setTitle(e.target.value);
@@ -26,6 +28,11 @@ const TitleInput = ({ title, setTitle, defaultTitle, charLimit }) => {
         onClick={(e) => {
           if (e.target.value === defaultTitle) {
             e.target.select();
+          }
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Escape") {
+            titleInput.current.blur();
           }
         }}
         onBlur={(e) => {
