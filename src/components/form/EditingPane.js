@@ -8,7 +8,6 @@ import { useCallback, useMemo, useState } from "react";
 const EditingPane = () => {
   // Title input
   const [title, setTitle] = useState("Untitled run");
-
   // Dropzone
   const [profileImg, setProfileImg] = useState(
     require("../../assets/profile.png")

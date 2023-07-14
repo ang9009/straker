@@ -7,5 +7,5 @@
 
 #form-container {
     padding: 40px 20px;
-    height: 100%;
+    height: calc(100% - var(--navBarHeight));
 }

@@ -5,8 +5,7 @@
     font-weight: bolder;
     min-width: 10px;
     padding: 5px;
-    transform: translateX(-5px);
-    border-radius: var(--inputBorderRadius);
+    transform: translateX(-5px);    border-radius: var(--inputBorderRadius);
 }
 
 .title-input:hover {
@@ -16,7 +15,6 @@
 .title-input:focus {
     outline: 2px solid black
 }
-
 #hide {
     position: absolute;
     opacity: 0;
