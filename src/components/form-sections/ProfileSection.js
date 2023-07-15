@@ -1,8 +1,9 @@
-import ProfilePictureDropzone from "./ProfilePictureDropzone";
+import ProfilePictureDropzone from "../form/ProfilePictureDropzone";
 import { FiUser } from "react-icons/fi";
 import "./ProfileSection.css";
+import TextInput from "../form/TextInput";
 
-const ProfileSection = ({ profileImg, setProfileImg }) => {
+const ProfileSection = ({ profileImg, setProfileImg, name, setName }) => {
   return (
     <div className="form-section-container">
       <h1 className="form-section-title">
@@ -12,6 +13,12 @@ const ProfileSection = ({ profileImg, setProfileImg }) => {
       <ProfilePictureDropzone
         profileImg={profileImg}
         setProfileImg={setProfileImg}
+      />
+      <TextInput
+        inputLabel={"Name"}
+        placeholder={"e.g. John Doe"}
+        content={name}
+        setContent={setName}
       />
     </div>
   );

@@ -1,0 +1,28 @@
+.leaflet-container {
+    height: 350px;
+    border-radius: var(--inputBorderRadius);
+    margin-top: var(--inputMarginTop);
+    width: 100%;    
+    z-index: 0;
+}
+
+#fullscreen-btn {
+    width: 30px;
+    height: 30px;
+    background: white;
+    border-radius: 2px;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px;
+    border: none;
+    z-index: 999999;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: all 0.2s
+}
+
+#fullscreen-btn:hover {
+    transform: scale(1.1);
+}

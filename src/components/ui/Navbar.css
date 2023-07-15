@@ -8,13 +8,15 @@ nav {
     user-select: none;
 }
 
-#logo {
+#logo-container {
     user-select: none;
     font-family: "Arimo", "sans-serif";
     font-weight: bold;
+    display: flex;
 }
 
-.test {
-    cursor: pointer;
-    color: var(--primaryIconColor);
-}
+#logo-container a {
+    display: grid;
+    place-items: center;
+    margin-left: 8px;
+    cursor: pointer;}

@@ -1,11 +1,12 @@
-#sidebar-container {
+#editingpane-container {
     width: 35vw;
-    height: 100%;
+    height: 100%;    
     border: var(--borderThickness) solid var(--primaryBorderColor);
     border-radius: 12px 0 0 12px;
 }
 
 #form-container {
-    padding: 40px 20px;
+    padding: 40px 30px;
     height: calc(100% - var(--navBarHeight));
+    overflow-y: scroll;
 }

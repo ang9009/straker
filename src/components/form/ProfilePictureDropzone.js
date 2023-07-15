@@ -37,7 +37,20 @@ const ProfilePictureDropzone = ({ profileImg, setProfileImg }) => {
   );
 
   return (
-    <div className="dropzone-component-container">
+    <div className="dropzone-component-wrapper">
+      <p className="input-label">Profile picture</p>
+      <div className="dropzone-container">
+        <div className="image-and-dropzone-container">
+          <img src={profileImg} alt="" style={{ borderRadius: "50%" }} />
+          <div {...getRootProps({ className: "dropzone", style })}>
+            <input {...getInputProps()} />
+            <FiFile color={"var(--primaryIconColor)"} />
+            <p>
+              <span>Click to upload</span> or drag and drop...
+            </p>
+          </div>
+        </div>
+      </div>
       <CropperModal
         profileImg={profileImg}
         setProfileImg={setProfileImg}
@@ -46,16 +59,6 @@ const ProfilePictureDropzone = ({ profileImg, setProfileImg }) => {
         isOpen={isOpen}
         setIsOpen={setIsOpen}
       />
-      <div className="image-and-dropzone-container">
-        <img src={profileImg} alt="" style={{ borderRadius: "50%" }} />
-        <div {...getRootProps({ className: "dropzone", style })}>
-          <input {...getInputProps()} />
-          <FiFile color={"var(--primaryIconColor)"} />
-          <p>
-            <span>Click to upload</span> or drag and drop...
-          </p>
-        </div>
-      </div>
     </div>
   );
 };

@@ -6,6 +6,7 @@ import { modalStyles } from "../../data/modalStyles";
 import { useCallback, useState } from "react";
 import PrimaryButton from "../ui/PrimaryButton";
 import getCroppedImg from "../../utils/cropImage";
+import { FiImage } from "react-icons/fi";
 
 const CropperModal = ({
   profileImg,
@@ -32,10 +33,12 @@ const CropperModal = ({
   // Modal
   const handleCancel = () => {
     setIsOpen(false);
+    setZoom(1);
   };
 
   const handleApply = () => {
     applyCrop();
+    setZoom(1);
     setIsOpen(false);
   };
 
@@ -46,6 +49,7 @@ const CropperModal = ({
       closeTimeoutMS={500}
       onRequestClose={() => {
         setProfileImg("../../assets/profile.png");
+        setZoom(1);
         setIsOpen(false);
       }}
     >
@@ -68,8 +72,8 @@ const CropperModal = ({
             />
           </div>
         </div>
-        {/* TODO: replace with slider component? */}
         <div className="controls">
+          <FiImage color={"var(--primaryIconColor)"} size={"25px"} />
           <input
             type="range"
             value={zoom}
@@ -82,6 +86,7 @@ const CropperModal = ({
             }}
             className="zoom-range"
           />
+          <FiImage color={"var(--primaryIconColor)"} size={"40px"} />
         </div>
       </div>
       <div className="modal-bottom">
@@ -95,6 +100,7 @@ const CropperModal = ({
           fontWeight={500}
           marginLeft={"auto"}
           onClick={handleCancel}
+          hoverColor={"rgba(0, 0, 0, 0.05)"}
         />
         <PrimaryButton
           text={"Apply"}
@@ -105,7 +111,7 @@ const CropperModal = ({
           borderRadius={"5px"}
           fontWeight={500}
           marginLeft={"10px"}
-          hoverColor={"gray"}
+          hoverColor={"rgba(0, 0, 0, 0.70)"}
           onClick={handleApply}
         />
       </div>

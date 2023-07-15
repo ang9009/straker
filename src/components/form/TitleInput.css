@@ -5,7 +5,8 @@
     font-weight: bolder;
     min-width: 10px;
     padding: 5px;
-    transform: translateX(-5px);    border-radius: var(--inputBorderRadius);
+    transform: translate(-5px, 5px);
+    border-radius: var(--inputBorderRadius);
 }
 
 .title-input:hover {

@@ -1,0 +1,18 @@
+.text-input-wrapper {
+    margin-top: var(--inputMarginTop);
+
+}
+
+#text-input {
+    padding: var(--inputPadding);
+    height: 50px;
+    display: block;
+    width: 100%;
+    border: var(--borderThickness) solid var(--inputBorderColor);
+    border-radius: var(--inputBorderRadius);
+    font-size: var(--inputFontSize);
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 4px;}
+
+#text-input:focus {
+    outline: none;
+}
