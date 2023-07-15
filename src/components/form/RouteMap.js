@@ -12,7 +12,7 @@ const RouteMap = ({ center }) => {
   return (
     <>
       {center ? (
-        <MapContainer center={center} zoom={13} scrollWheelZoom={false}>
+        <MapContainer center={center} zoom={13} scrollWheelZoom={true}>
           <ChangeView center={center} />
           <button id="fullscreen-btn">
             <FiMaximize size={"15px"} />
@@ -37,7 +37,6 @@ const RouteMap = ({ center }) => {
           style={{
             width: "100%",
             height: "350px",
-            marginTop: "var(--inputMarginTop)",
           }}
         />
       )}

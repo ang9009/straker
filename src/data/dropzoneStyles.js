@@ -1,5 +1,5 @@
 export const focusedStyle = {
-  borderColor: "#2196f3",
+  border: "var(--inputFocusedBorder)",
 };
 
 export const acceptStyle = {

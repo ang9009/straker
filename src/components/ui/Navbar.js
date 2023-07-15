@@ -22,7 +22,7 @@ const Navbar = () => {
           </div>
         </Tooltip>
       </div>
-      <FiMenu size={"20px"} />
+      <FiMenu size={"20px"} style={{ cursor: "pointer" }} />
     </nav>
   );
 };

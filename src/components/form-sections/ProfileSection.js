@@ -8,7 +8,7 @@ const ProfileSection = ({ profileImg, setProfileImg, name, setName }) => {
     <div className="form-section-container">
       <h1 className="form-section-title">
         <FiUser color={"var(--primaryIconColor)"} />
-        <span>Profile</span>
+        <p>Profile</p>
       </h1>
       <ProfilePictureDropzone
         profileImg={profileImg}
