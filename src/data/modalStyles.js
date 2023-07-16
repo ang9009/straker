@@ -17,6 +17,7 @@ export const modalStyles = {
     bottom: 0,
     backgroundColor: "rgba(0, 0, 0, 0.75)",
     transition: "all 0.2s",
+    zIndex: "9999999999999999",
   },
 };
 

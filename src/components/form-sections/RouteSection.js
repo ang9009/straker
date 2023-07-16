@@ -7,11 +7,15 @@ import LocationSearchInput from "../form/LocationSearchInput";
 const RouteSection = () => {
   const [center, setCenter] = useState(null);
 
-  useEffect(() => {
+  const getCurrLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       const coords = position.coords;
       setCenter([coords.latitude, coords.longitude]);
     });
+  };
+
+  useEffect(() => {
+    getCurrLocation();
   }, []);
 
   return (

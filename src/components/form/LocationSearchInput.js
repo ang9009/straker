@@ -1,31 +1,30 @@
 import AsyncSelect from "react-select/async";
 import { locationSearchInputStyles } from "../../data/locationSearchInputStyles";
-import { useState } from "react";
-import { FiCircle, FiMapPin } from "react-icons/fi";
+import { useEffect, useState } from "react";
+import { FiMapPin } from "react-icons/fi";
 import "./LocationSearchInput.css";
+import AutocompleteSearchInput from "./AutocompleteSearchInput";
 
 const LocationSearchInput = () => {
-  const [start, setStart] = useState("");
-  const [end, setEnd] = useState("");
+  const [startSearch, setStartSearch] = useState("");
+  const [endSearch, setEndSearch] = useState("");
 
   return (
     <>
       <div className="search-input-container">
         <FiMapPin style={{ marginRight: "15px", color: "blue" }} />
-        <AsyncSelect
-          styles={locationSearchInputStyles}
-          placeholder={"Enter starting point..."}
-          value={start}
-          onChange={(e) => setStart(e.target.value)}
+        <AutocompleteSearchInput
+          input={startSearch}
+          setInput={setStartSearch}
+          placeholder={"Set starting point..."}
         />
       </div>
       <div className="search-input-container">
         <FiMapPin style={{ marginRight: "15px", color: "red" }} />
-        <AsyncSelect
-          styles={locationSearchInputStyles}
-          placeholder={<div>Enter ending point...</div>}
-          value={end}
-          onChange={(e) => setEnd(e.target.value)}
+        <AutocompleteSearchInput
+          input={endSearch}
+          setInput={setEndSearch}
+          placeholder={"Set ending point..."}
         />
       </div>
     </>
