@@ -17,14 +17,20 @@ function removeLastWord(str) {
 const AutocompleteSelect = ({ input, setInput, placeholder }) => {
   const [selected, setSelected] = useState([]);
   const [options, setOptions] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
       if (input !== "") {
+        setIsLoading(true);
+
         getLocationAutocomplete(input).then((res) => {
           const locationsInfo = res.features;
 
           const locations = [];
+
+          // TODO: add error message if too many requests?
+
           locationsInfo.forEach((location) => {
             locations.push({
               value: location.properties.formatted,
@@ -33,6 +39,7 @@ const AutocompleteSelect = ({ input, setInput, placeholder }) => {
           });
 
           setOptions(locations);
+          setIsLoading(false);
         });
       }
     }, 500);
@@ -82,6 +89,7 @@ const AutocompleteSelect = ({ input, setInput, placeholder }) => {
         SingleValue: () => null,
       }}
       options={options}
+      isLoading={isLoading}
     />
   );
 };
