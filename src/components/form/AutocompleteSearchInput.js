@@ -1,6 +1,6 @@
-// Adapted from https://stackoverflow.com/questions/63873781/how-to-prevent-reactselect-from-clearing-the-input
+// Adapted from https://stackoverflow.com/questions/63873781/how-to-prevent-reactselect-from-clearing-the-input, modified
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import Select, { createFilter } from "react-select";
 import { locationSearchInputStyles } from "../../data/locationSearchInputStyles";
 import { getLocationAutocomplete } from "../../queries/getLocationAutocomplete";
@@ -9,19 +9,15 @@ function getLastWord(str) {
   return str.split(" ").slice(-1).pop();
 }
 
-function removeLastWord(str) {
-  var lastWhiteSpaceIndex = str.lastIndexOf(" ");
-  return str.substring(0, lastWhiteSpaceIndex + 1);
-}
-
 const AutocompleteSelect = ({ input, setInput, placeholder }) => {
   const [selected, setSelected] = useState([]);
   const [options, setOptions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
-      if (input !== "") {
+      // Must check if nothing is selected, otherwise fetch is run unnecessarily a second time
+      if (input !== "" && selected.length === 0) {
+        console.log("fetching");
         setIsLoading(true);
 
         getLocationAutocomplete(input).then((res) => {
@@ -29,8 +25,7 @@ const AutocompleteSelect = ({ input, setInput, placeholder }) => {
 
           const locations = [];
 
-          // TODO: add error message if too many requests?
-
+          // TODO: add error message if too many requests? + this component is too long
           locationsInfo.forEach((location) => {
             locations.push({
               value: location.properties.formatted,
@@ -42,14 +37,19 @@ const AutocompleteSelect = ({ input, setInput, placeholder }) => {
           setIsLoading(false);
         });
       }
-    }, 500);
+    }, 1000);
 
+    // Clear options and selected if input is cleared
+    if (input === "") {
+      setOptions([]);
+      setSelected([]);
+    }
     return () => clearTimeout(delayDebounce);
   }, [input]);
 
   const handleChange = (s) => {
     setSelected({ ...s });
-    setInput((input) => removeLastWord(input) + s.value);
+    setInput(s.value);
   };
 
   const handleInputChange = (e, meta) => {
@@ -58,10 +58,9 @@ const AutocompleteSelect = ({ input, setInput, placeholder }) => {
     }
   };
 
-  React.useLayoutEffect(() => {
-    const inputEl = document.getElementById("myInput");
-    if (!inputEl) return;
-    // prevent input from being hidden after selecting
+  useLayoutEffect(() => {
+    const inputEl = document.getElementById(placeholder);
+    if (!inputEl) return; // Prevents input from being hidden after selecting
     inputEl.style.opacity = "1";
   }, [selected]);
 
@@ -76,20 +75,21 @@ const AutocompleteSelect = ({ input, setInput, placeholder }) => {
     <Select
       value={selected}
       filterOption={customFilter()}
-      inputId="myInput"
+      inputId={placeholder}
       placeholder={placeholder}
       onChange={handleChange}
       blurInputOnSelect={false}
       inputValue={input}
       onInputChange={handleInputChange}
       isSearchable
-      hideSelectedOptions={false}
+      hideSelectedOptions={true}
       styles={locationSearchInputStyles}
       components={{
         SingleValue: () => null,
       }}
       options={options}
       isLoading={isLoading}
+      noOptionsMessage={() => "No locations found!"}
     />
   );
 };
