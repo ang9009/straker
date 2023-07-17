@@ -1,10 +1,11 @@
 import { FeatureGroup, MapContainer, Marker, TileLayer } from "react-leaflet";
 import ChangeView from "../form/ChangeView";
-import markerIconPng from "leaflet/dist/images/marker-icon.png";
-import { Icon, Map } from "leaflet";
+import startMarkerSvg from "../../assets/start_marker.svg";
+import endMarkerSvg from "../../assets/end_marker.svg";
+
+import { Icon } from "leaflet";
 import Skeleton from "react-loading-skeleton";
 import { FiMaximize } from "react-icons/fi";
-
 import "./RouteMap.css";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useRef, useState } from "react";
@@ -80,9 +81,10 @@ const RouteMap = ({
               }}
               icon={
                 new Icon({
-                  iconUrl: markerIconPng,
+                  iconUrl: startMarkerSvg,
                   iconSize: [25, 41],
                   iconAnchor: [12, 41],
+                  className: "start-marker",
                 })
               }
             ></Marker>
@@ -104,7 +106,7 @@ const RouteMap = ({
               }}
               icon={
                 new Icon({
-                  iconUrl: markerIconPng,
+                  iconUrl: endMarkerSvg,
                   iconSize: [25, 41],
                   iconAnchor: [12, 41],
                 })

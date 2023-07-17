@@ -19,7 +19,6 @@ const AutocompleteSelect = ({ selected, setSelected, placeholder }) => {
       // Must check if nothing is selected, otherwise fetch is run unnecessarily a second time
       if (input !== "" && selected.length === 0) {
         setIsLoading(true);
-
         getLocationAutocomplete(input).then((res) => {
           const locationsInfo = res.features;
           const locations = [];
@@ -52,9 +51,11 @@ const AutocompleteSelect = ({ selected, setSelected, placeholder }) => {
     return () => clearTimeout(delayDebounce);
   }, [input]);
 
-  // Required for marker onDrag event to updaet input
+  // Required for marker onDrag event to update input
   useEffect(() => {
-    setInput(selected.label);
+    if (selected.length !== 0) {
+      setInput(selected.label);
+    }
   }, [selected]);
 
   const handleChange = (s) => {
