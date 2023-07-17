@@ -20,7 +20,7 @@ const AutocompleteSelect = ({ selected, setSelected, placeholder }) => {
     const delayDebounce = setTimeout(() => {
       // Must check if nothing is selected, otherwise fetch is run unnecessarily a second time
       // If input is replaced without being cleared, search should still run
-      if ((input !== "" && selected.length === 0) || input !== selected.label) {
+      if (input !== "" && (input !== selected.label || selected.length === 0)) {
         setIsLoading(true);
         getLocationAutocomplete(input).then((res) => {
           const locationsInfo = res.features;

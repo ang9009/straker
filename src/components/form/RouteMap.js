@@ -22,6 +22,7 @@ const RouteMap = ({
   setSelectedStartLocation,
   setSelectedEndLocation,
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [center, setCenter] = useState(null);
   const [polyline, setPolyline] = useState([]);
   const [error, setError] = useState("");
@@ -31,9 +32,12 @@ const RouteMap = ({
   const endMarkerRef = useRef(null);
 
   useEffect(() => {
+    setIsLoading(true);
+
     navigator.geolocation.getCurrentPosition((position) => {
       const coords = position.coords;
       setCenter([coords.latitude, coords.longitude]);
+      setIsLoading(false);
     });
   }, []);
 
@@ -46,23 +50,31 @@ const RouteMap = ({
       const group = groupRef.current;
       map.fitBounds(group.getBounds());
     }
+
+    // Setting polyline
     if (
       selectedStartLocation.length !== 0 &&
       selectedEndLocation.length !== 0
     ) {
-      console.log(selectedStartLocation.value, selectedEndLocation.value);
-      getPolylineCoords(
-        selectedStartLocation.value,
-        selectedEndLocation.value
-      ).then((res) => {
-        const newPolyline = [];
+      setError("");
 
-        res.features[0].geometry.coordinates[0].forEach((coords) => {
-          newPolyline.push([coords[1], coords[0]]);
+      getPolylineCoords(selectedStartLocation.value, selectedEndLocation.value)
+        .then((res) => {
+          if (res.error) {
+            throw new Error(res.message);
+          }
+
+          const newPolyline = [];
+
+          res.features[0].geometry.coordinates[0].forEach((coords) => {
+            newPolyline.push([coords[1], coords[0]]);
+          });
+
+          setPolyline(newPolyline);
+        })
+        .catch((error) => {
+          setError(error.message);
         });
-
-        setPolyline(newPolyline);
-      });
     }
   }, [selectedStartLocation, selectedEndLocation]);
 
@@ -72,10 +84,17 @@ const RouteMap = ({
 
   return (
     <>
-      {center ? (
+      {isLoading ? (
+        <Skeleton
+          style={{
+            width: "100%",
+            height: "350px",
+          }}
+        />
+      ) : (
         <div>
           <MapContainer
-            center={selectedStartLocation.value || center}
+            center={center}
             zoom={13}
             scrollWheelZoom={true}
             ref={mapRef}
@@ -84,7 +103,7 @@ const RouteMap = ({
             maxZoom={17}
             minZoom={2}
           >
-            <Polyline pathOptions={{ color: "black" }} positions={polyline} />
+            <Polyline pathOptions={{ color: "#FC5201" }} positions={polyline} />
             <button id="fullscreen-btn">
               <FiMaximize size={"15px"} />
             </button>
@@ -148,15 +167,8 @@ const RouteMap = ({
               )}
             </FeatureGroup>
           </MapContainer>
-          {error || <p>{error}</p>}
+          {error && <p className="error-msg">{error}</p>}
         </div>
-      ) : (
-        <Skeleton
-          style={{
-            width: "100%",
-            height: "350px",
-          }}
-        />
       )}
     </>
   );

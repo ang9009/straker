@@ -49,6 +49,12 @@
   margin-bottom: 10px;
 }
 
+.error-msg {
+  margin-top: 10px;    
+  color: red;
+  font-size: 12px;
+}
+
 /* React modal */
 .ReactModal__Overlay { 
   opacity: 0;
@@ -75,3 +81,4 @@
 .ReactModal__Content--before-close {
   transform: scale(90%) translate(-50%, -50%) !important;
 }
+

@@ -43,7 +43,7 @@ const TitleInput = ({ title, setTitle, defaultTitle, charLimit }) => {
         style={{ width }}
       />
       {title.length >= charLimit && (
-        <p className="error-msg">
+        <p className="error-msg" id="title-error-msg">
           Maximum character limit reached ({charLimit})
         </p>
       )}

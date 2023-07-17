@@ -42,7 +42,7 @@ export const locationSearchInputStyles = {
   container: (baseStyles) => ({
     ...baseStyles,
     width: "100%",
-    maxWidth: "452.22px",
+    maxWidth: "397.12px",
     outline: "none",
     border: "none",
   }),
