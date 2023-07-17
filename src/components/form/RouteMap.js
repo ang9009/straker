@@ -1,16 +1,20 @@
-import { FeatureGroup, MapContainer, Marker, TileLayer } from "react-leaflet";
-import ChangeView from "../form/ChangeView";
+import {
+  FeatureGroup,
+  MapContainer,
+  Marker,
+  TileLayer,
+  Polyline,
+} from "react-leaflet";
 import startMarkerSvg from "../../assets/start_marker.svg";
 import endMarkerSvg from "../../assets/end_marker.svg";
-
-import { Icon, Polyline } from "leaflet";
+import { Icon, latLng, latLngBounds } from "leaflet";
 import Skeleton from "react-loading-skeleton";
 import { FiMaximize } from "react-icons/fi";
-import "./RouteMap.css";
-import "leaflet/dist/leaflet.css";
 import { useEffect, useRef, useState } from "react";
 import { getLocationFromCoords } from "../../queries/getLocationFromCoords";
 import { getPolylineCoords } from "../../queries/getPolylineCoords";
+import "./RouteMap.css";
+import "leaflet/dist/leaflet.css";
 
 const RouteMap = ({
   selectedStartLocation,
@@ -26,18 +30,13 @@ const RouteMap = ({
   const startMarkerRef = useRef(null);
   const endMarkerRef = useRef(null);
 
-  const getCurrLocation = () => {
+  useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       const coords = position.coords;
       setCenter([coords.latitude, coords.longitude]);
     });
-  };
-  useEffect(() => {
-    getCurrLocation();
   }, []);
 
-  // Resizes map when coordinates of start/end points change
-  // Allows markers to always be visible
   useEffect(() => {
     if (
       mapRef.current &&
@@ -47,23 +46,30 @@ const RouteMap = ({
       const group = groupRef.current;
       map.fitBounds(group.getBounds());
     }
-
     if (
       selectedStartLocation.length !== 0 &&
       selectedEndLocation.length !== 0
     ) {
-      getPolylineCoords(selectedStartLocation.value, selectedEndLocation.value)
-        .then((res) => {
-          if (!res.statusCode) {
-            console.log("success", res);
-            return;
-          }
-        })
-        .catch((error) => {
-          setError(error.message);
+      console.log(selectedStartLocation.value, selectedEndLocation.value);
+      getPolylineCoords(
+        selectedStartLocation.value,
+        selectedEndLocation.value
+      ).then((res) => {
+        const newPolyline = [];
+
+        res.features[0].geometry.coordinates[0].forEach((coords) => {
+          newPolyline.push([coords[1], coords[0]]);
         });
+
+        setPolyline(newPolyline);
+      });
     }
   }, [selectedStartLocation, selectedEndLocation]);
+
+  const corner1 = latLng(-90, -180);
+  const corner2 = latLng(90, 180);
+  const worldBounds = latLngBounds(corner1, corner2);
+
   return (
     <>
       {center ? (
@@ -73,15 +79,18 @@ const RouteMap = ({
             zoom={13}
             scrollWheelZoom={true}
             ref={mapRef}
+            maxBoundsViscosity={1.0}
+            maxBounds={worldBounds}
+            maxZoom={17}
+            minZoom={2}
           >
-            {/* ChangeView required to change center dynamically because MapContainer has immutable props*/}
-            <ChangeView center={selectedStartLocation.value || center} />
+            <Polyline pathOptions={{ color: "black" }} positions={polyline} />
             <button id="fullscreen-btn">
               <FiMaximize size={"15px"} />
             </button>
             <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              noWrap={true}
             />
             <FeatureGroup ref={groupRef}>
               {selectedStartLocation.length !== 0 && (
@@ -96,7 +105,7 @@ const RouteMap = ({
                       getLocationFromCoords(coords).then((res) => {
                         setSelectedStartLocation({
                           value: coords,
-                          label: res.features[0].properties.formatted,
+                          label: res?.features[0].properties.formatted,
                         });
                       });
                     },
@@ -138,9 +147,8 @@ const RouteMap = ({
                 ></Marker>
               )}
             </FeatureGroup>
-            {/* <Polyline pathOptions={{ color: "black" }} positions={{}} /> */}
           </MapContainer>
-          <p>{error}</p>
+          {error || <p>{error}</p>}
         </div>
       ) : (
         <Skeleton
