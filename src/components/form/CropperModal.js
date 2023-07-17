@@ -8,14 +8,7 @@ import PrimaryButton from "../ui/PrimaryButton";
 import getCroppedImg from "../../utils/cropImage";
 import { FiImage } from "react-icons/fi";
 
-const CropperModal = ({
-  profileImg,
-  setProfileImg,
-  isOpen,
-  setIsOpen,
-  croppedImg,
-  setCroppedImg,
-}) => {
+const CropperModal = ({ setProfileImg, isOpen, setIsOpen, croppedImg }) => {
   // Cropper
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);

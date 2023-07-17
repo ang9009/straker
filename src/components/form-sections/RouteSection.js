@@ -4,20 +4,12 @@ import RouteMap from "../form/RouteMap";
 import { FiNavigation } from "react-icons/fi";
 import LocationSearchInput from "../form/LocationSearchInput";
 
-const RouteSection = () => {
-  const [center, setCenter] = useState(null);
-
-  const getCurrLocation = () => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const coords = position.coords;
-      setCenter([coords.latitude, coords.longitude]);
-    });
-  };
-
-  useEffect(() => {
-    getCurrLocation();
-  }, []);
-
+const RouteSection = ({
+  selectedStartLocation,
+  setSelectedStartLocation,
+  selectedEndLocation,
+  setSelectedEndLocation,
+}) => {
   return (
     <>
       <div className="form-section-container">
@@ -25,8 +17,18 @@ const RouteSection = () => {
           <FiNavigation size={"13px"} color={"var(--primaryIconColor)"} />
           <p>Route</p>
         </h1>
-        <RouteMap center={center} />
-        <LocationSearchInput />
+        <RouteMap
+          selectedStartLocation={selectedStartLocation}
+          setSelectedStartLocation={setSelectedStartLocation}
+          selectedEndLocation={selectedEndLocation}
+          setSelectedEndLocation={setSelectedEndLocation}
+        />
+        <LocationSearchInput
+          selectedStartLocation={selectedStartLocation}
+          setSelectedStartLocation={setSelectedStartLocation}
+          selectedEndLocation={selectedEndLocation}
+          setSelectedEndLocation={setSelectedEndLocation}
+        />
       </div>
     </>
   );

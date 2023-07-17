@@ -3,15 +3,20 @@ import TitleInput from "./TitleInput";
 import ProfileSection from "../form-sections/ProfileSection";
 import "./EditingPane.css";
 
-import { useCallback, useMemo, useState } from "react";
+import { useState } from "react";
 import RouteSection from "../form-sections/RouteSection";
 
 const EditingPane = () => {
+  // Profile section
   const [title, setTitle] = useState("Untitled run");
   const [profileImg, setProfileImg] = useState(
     require("../../assets/profile.png")
   );
   const [name, setName] = useState("");
+
+  // Route section
+  const [selectedStartLocation, setSelectedStartLocation] = useState([]);
+  const [selectedEndLocation, setSelectedEndLocation] = useState([]);
 
   return (
     <div id="editingpane-container">
@@ -29,7 +34,12 @@ const EditingPane = () => {
           name={name}
           setName={setName}
         />
-        <RouteSection />
+        <RouteSection
+          selectedStartLocation={selectedStartLocation}
+          setSelectedStartLocation={setSelectedStartLocation}
+          selectedEndLocation={selectedEndLocation}
+          setSelectedEndLocation={setSelectedEndLocation}
+        />
       </div>
     </div>
   );

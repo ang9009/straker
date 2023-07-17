@@ -5,25 +5,27 @@ import { FiMapPin } from "react-icons/fi";
 import "./LocationSearchInput.css";
 import AutocompleteSearchInput from "./AutocompleteSearchInput";
 
-const LocationSearchInput = () => {
-  const [startSearch, setStartSearch] = useState("");
-  const [endSearch, setEndSearch] = useState("");
-
+const LocationSearchInput = ({
+  selectedStartLocation,
+  setSelectedStartLocation,
+  selectedEndLocation,
+  setSelectedEndLocation,
+}) => {
   return (
     <>
       <div className="search-input-container">
         <FiMapPin style={{ marginRight: "15px", color: "blue" }} />
         <AutocompleteSearchInput
-          input={startSearch}
-          setInput={setStartSearch}
+          selected={selectedStartLocation}
+          setSelected={setSelectedStartLocation}
           placeholder={"Set starting point..."}
         />
       </div>
       <div className="search-input-container">
         <FiMapPin style={{ marginRight: "15px", color: "red" }} />
         <AutocompleteSearchInput
-          input={endSearch}
-          setInput={setEndSearch}
+          selected={selectedEndLocation}
+          setSelected={setSelectedEndLocation}
           placeholder={"Set ending point..."}
         />
       </div>

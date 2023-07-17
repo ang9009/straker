@@ -9,26 +9,31 @@ function getLastWord(str) {
   return str.split(" ").slice(-1).pop();
 }
 
-const AutocompleteSelect = ({ input, setInput, placeholder }) => {
-  const [selected, setSelected] = useState([]);
+const AutocompleteSelect = ({ selected, setSelected, placeholder }) => {
+  const [input, setInput] = useState("");
   const [options, setOptions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
       // Must check if nothing is selected, otherwise fetch is run unnecessarily a second time
       if (input !== "" && selected.length === 0) {
-        console.log("fetching");
         setIsLoading(true);
 
         getLocationAutocomplete(input).then((res) => {
           const locationsInfo = res.features;
-
           const locations = [];
 
-          // TODO: add error message if too many requests? + this component is too long
+          // TODO: add error message if too many requests/location not allowed? + this component is too long
           locationsInfo.forEach((location) => {
+            // Reordered because API returns them in wrong order (should be lat first then lng)
+            const coords = {
+              lat: location.geometry.coordinates[1],
+              lng: location.geometry.coordinates[0],
+            };
+
             locations.push({
-              value: location.properties.formatted,
+              value: coords,
               label: location.properties.formatted,
             });
           });
@@ -47,9 +52,14 @@ const AutocompleteSelect = ({ input, setInput, placeholder }) => {
     return () => clearTimeout(delayDebounce);
   }, [input]);
 
+  // Required for marker onDrag event to updaet input
+  useEffect(() => {
+    setInput(selected.label);
+  }, [selected]);
+
   const handleChange = (s) => {
     setSelected({ ...s });
-    setInput(s.value);
+    setInput(s.label);
   };
 
   const handleInputChange = (e, meta) => {
@@ -58,9 +68,10 @@ const AutocompleteSelect = ({ input, setInput, placeholder }) => {
     }
   };
 
+  // Prevents input from being hidden after selecting
   useLayoutEffect(() => {
     const inputEl = document.getElementById(placeholder);
-    if (!inputEl) return; // Prevents input from being hidden after selecting
+    if (!inputEl) return;
     inputEl.style.opacity = "1";
   }, [selected]);
 
