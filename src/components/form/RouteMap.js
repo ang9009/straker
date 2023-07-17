@@ -3,7 +3,7 @@ import ChangeView from "../form/ChangeView";
 import startMarkerSvg from "../../assets/start_marker.svg";
 import endMarkerSvg from "../../assets/end_marker.svg";
 
-import { Icon } from "leaflet";
+import { Icon, Polyline } from "leaflet";
 import Skeleton from "react-loading-skeleton";
 import { FiMaximize } from "react-icons/fi";
 import "./RouteMap.css";
@@ -19,6 +19,8 @@ const RouteMap = ({
   setSelectedEndLocation,
 }) => {
   const [center, setCenter] = useState(null);
+  const [polyline, setPolyline] = useState([]);
+  const [error, setError] = useState("");
   const mapRef = useRef(null);
   const groupRef = useRef(null);
   const startMarkerRef = useRef(null);
@@ -50,88 +52,96 @@ const RouteMap = ({
       selectedStartLocation.length !== 0 &&
       selectedEndLocation.length !== 0
     ) {
-      const result = getPolylineCoords(
-        selectedStartLocation.value,
-        selectedEndLocation.value
-      );
-      console.log(result);
+      getPolylineCoords(selectedStartLocation.value, selectedEndLocation.value)
+        .then((res) => {
+          if (!res.statusCode) {
+            console.log("success", res);
+            return;
+          }
+        })
+        .catch((error) => {
+          setError(error.message);
+        });
     }
   }, [selectedStartLocation, selectedEndLocation]);
-
   return (
     <>
       {center ? (
-        <MapContainer
-          center={selectedStartLocation.value || center}
-          zoom={13}
-          scrollWheelZoom={true}
-          ref={mapRef}
-        >
-          {/* ChangeView required to change center dynamically because MapContainer has immutable props*/}
-          <ChangeView center={selectedStartLocation.value || center} />
-          <button id="fullscreen-btn">
-            <FiMaximize size={"15px"} />
-          </button>
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <FeatureGroup ref={groupRef}>
-            {selectedStartLocation.length !== 0 && (
-              <Marker
-                position={selectedStartLocation.value || center}
-                draggable={true}
-                ref={startMarkerRef}
-                eventHandlers={{
-                  dragend: () => {
-                    const marker = startMarkerRef.current;
-                    const coords = marker.getLatLng();
-                    getLocationFromCoords(coords).then((res) => {
-                      setSelectedStartLocation({
-                        value: coords,
-                        label: res.features[0].properties.formatted,
+        <div>
+          <MapContainer
+            center={selectedStartLocation.value || center}
+            zoom={13}
+            scrollWheelZoom={true}
+            ref={mapRef}
+          >
+            {/* ChangeView required to change center dynamically because MapContainer has immutable props*/}
+            <ChangeView center={selectedStartLocation.value || center} />
+            <button id="fullscreen-btn">
+              <FiMaximize size={"15px"} />
+            </button>
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <FeatureGroup ref={groupRef}>
+              {selectedStartLocation.length !== 0 && (
+                <Marker
+                  position={selectedStartLocation.value || center}
+                  draggable={true}
+                  ref={startMarkerRef}
+                  eventHandlers={{
+                    dragend: () => {
+                      const marker = startMarkerRef.current;
+                      const coords = marker.getLatLng();
+                      getLocationFromCoords(coords).then((res) => {
+                        setSelectedStartLocation({
+                          value: coords,
+                          label: res.features[0].properties.formatted,
+                        });
                       });
-                    });
-                  },
-                }}
-                icon={
-                  new Icon({
-                    iconUrl: startMarkerSvg,
-                    iconSize: [25, 41],
-                    iconAnchor: [12, 41],
-                    className: "start-marker",
-                  })
-                }
-              ></Marker>
-            )}
-            {selectedEndLocation.length !== 0 && (
-              <Marker
-                position={selectedEndLocation.value || center}
-                draggable={true}
-                ref={endMarkerRef}
-                eventHandlers={{
-                  dragend: () => {
-                    const marker = endMarkerRef.current;
-                    const coords = marker.getLatLng();
-                    getLocationFromCoords(coords).then((res) => {
-                      setSelectedEndLocation({
-                        value: coords,
-                        label: res.features[0].properties.formatted,
+                    },
+                  }}
+                  icon={
+                    new Icon({
+                      iconUrl: startMarkerSvg,
+                      iconSize: [25, 41],
+                      iconAnchor: [12, 41],
+                      className: "start-marker",
+                    })
+                  }
+                ></Marker>
+              )}
+              {selectedEndLocation.length !== 0 && (
+                <Marker
+                  position={selectedEndLocation.value || center}
+                  draggable={true}
+                  ref={endMarkerRef}
+                  eventHandlers={{
+                    dragend: () => {
+                      const marker = endMarkerRef.current;
+                      const coords = marker.getLatLng();
+                      getLocationFromCoords(coords).then((res) => {
+                        setSelectedEndLocation({
+                          value: coords,
+                          label: res.features[0].properties.formatted,
+                        });
                       });
-                    });
-                  },
-                }}
-                icon={
-                  new Icon({
-                    iconUrl: endMarkerSvg,
-                    iconSize: [25, 41],
-                    iconAnchor: [12, 41],
-                  })
-                }
-              ></Marker>
-            )}
-          </FeatureGroup>
-        </MapContainer>
+                    },
+                  }}
+                  icon={
+                    new Icon({
+                      iconUrl: endMarkerSvg,
+                      iconSize: [25, 41],
+                      iconAnchor: [12, 41],
+                    })
+                  }
+                ></Marker>
+              )}
+            </FeatureGroup>
+            {/* <Polyline pathOptions={{ color: "black" }} positions={{}} /> */}
+          </MapContainer>
+          <p>{error}</p>
+        </div>
       ) : (
         <Skeleton
           style={{
