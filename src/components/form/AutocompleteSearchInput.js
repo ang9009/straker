@@ -15,17 +15,13 @@ const AutocompleteSelect = ({ selected, setSelected, placeholder }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // Clear options and selected if input is cleared
-    if (input === "") {
-      setOptions([]);
-      setSelected([]);
-    }
+    if (selected.length === 0 && input == "") return;
 
     const delayDebounce = setTimeout(() => {
       // Must check if nothing is selected, otherwise fetch is run unnecessarily a second time
-      if (input !== "" && selected.length === 0) {
+      // If input isreplaced without being cleared, search should still run
+      if ((input !== "" && selected.length === 0) || input !== selected.label) {
         setIsLoading(true);
-
         getLocationAutocomplete(input).then((res) => {
           const locationsInfo = res.features;
           const locations = [];
@@ -48,6 +44,7 @@ const AutocompleteSelect = ({ selected, setSelected, placeholder }) => {
         });
       }
     }, 1000);
+
     return () => clearTimeout(delayDebounce);
   }, [input]);
 

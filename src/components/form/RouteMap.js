@@ -10,6 +10,7 @@ import "./RouteMap.css";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useRef, useState } from "react";
 import { getLocationFromCoords } from "../../queries/getLocationFromCoords";
+import { getPolylineCoords } from "../../queries/getPolylineCoords";
 
 const RouteMap = ({
   selectedStartLocation,
@@ -29,7 +30,6 @@ const RouteMap = ({
       setCenter([coords.latitude, coords.longitude]);
     });
   };
-
   useEffect(() => {
     getCurrLocation();
   }, []);
@@ -44,7 +44,17 @@ const RouteMap = ({
       const map = mapRef.current;
       const group = groupRef.current;
       map.fitBounds(group.getBounds());
-      // console.log(map.polyline());
+    }
+
+    if (
+      selectedStartLocation.length !== 0 &&
+      selectedEndLocation.length !== 0
+    ) {
+      const result = getPolylineCoords(
+        selectedStartLocation.value,
+        selectedEndLocation.value
+      );
+      console.log(result);
     }
   }, [selectedStartLocation, selectedEndLocation]);
 
