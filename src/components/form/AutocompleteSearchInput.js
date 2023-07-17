@@ -86,6 +86,7 @@ const AutocompleteSelect = ({ selected, setSelected, placeholder }) => {
   return (
     <Select
       value={selected}
+      noOptionsMessage={() => null}
       filterOption={customFilter()}
       inputId={placeholder}
       placeholder={placeholder}
@@ -101,7 +102,6 @@ const AutocompleteSelect = ({ selected, setSelected, placeholder }) => {
       }}
       options={options}
       isLoading={isLoading}
-      noOptionsMessage={() => "No locations found!"}
     />
   );
 };
