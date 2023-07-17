@@ -37,10 +37,14 @@ const RouteMap = ({
   // Resizes map when coordinates of start/end points change
   // Allows markers to always be visible
   useEffect(() => {
-    if (mapRef.current) {
+    if (
+      mapRef.current &&
+      (selectedStartLocation.length !== 0 || selectedEndLocation.length !== 0)
+    ) {
       const map = mapRef.current;
       const group = groupRef.current;
       map.fitBounds(group.getBounds());
+      // console.log(map.polyline());
     }
   }, [selectedStartLocation, selectedEndLocation]);
 
@@ -63,55 +67,59 @@ const RouteMap = ({
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <FeatureGroup ref={groupRef}>
-            <Marker
-              position={selectedStartLocation.value || center}
-              draggable={true}
-              ref={startMarkerRef}
-              eventHandlers={{
-                dragend: () => {
-                  const marker = startMarkerRef.current;
-                  const coords = marker.getLatLng();
-                  getLocationFromCoords(coords).then((res) => {
-                    setSelectedStartLocation({
-                      value: coords,
-                      label: res.features[0].properties.formatted,
+            {selectedStartLocation.length !== 0 && (
+              <Marker
+                position={selectedStartLocation.value || center}
+                draggable={true}
+                ref={startMarkerRef}
+                eventHandlers={{
+                  dragend: () => {
+                    const marker = startMarkerRef.current;
+                    const coords = marker.getLatLng();
+                    getLocationFromCoords(coords).then((res) => {
+                      setSelectedStartLocation({
+                        value: coords,
+                        label: res.features[0].properties.formatted,
+                      });
                     });
-                  });
-                },
-              }}
-              icon={
-                new Icon({
-                  iconUrl: startMarkerSvg,
-                  iconSize: [25, 41],
-                  iconAnchor: [12, 41],
-                  className: "start-marker",
-                })
-              }
-            ></Marker>
-            <Marker
-              position={selectedEndLocation.value || center}
-              draggable={true}
-              ref={endMarkerRef}
-              eventHandlers={{
-                dragend: () => {
-                  const marker = endMarkerRef.current;
-                  const coords = marker.getLatLng();
-                  getLocationFromCoords(coords).then((res) => {
-                    setSelectedEndLocation({
-                      value: coords,
-                      label: res.features[0].properties.formatted,
+                  },
+                }}
+                icon={
+                  new Icon({
+                    iconUrl: startMarkerSvg,
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    className: "start-marker",
+                  })
+                }
+              ></Marker>
+            )}
+            {selectedEndLocation.length !== 0 && (
+              <Marker
+                position={selectedEndLocation.value || center}
+                draggable={true}
+                ref={endMarkerRef}
+                eventHandlers={{
+                  dragend: () => {
+                    const marker = endMarkerRef.current;
+                    const coords = marker.getLatLng();
+                    getLocationFromCoords(coords).then((res) => {
+                      setSelectedEndLocation({
+                        value: coords,
+                        label: res.features[0].properties.formatted,
+                      });
                     });
-                  });
-                },
-              }}
-              icon={
-                new Icon({
-                  iconUrl: endMarkerSvg,
-                  iconSize: [25, 41],
-                  iconAnchor: [12, 41],
-                })
-              }
-            ></Marker>
+                  },
+                }}
+                icon={
+                  new Icon({
+                    iconUrl: endMarkerSvg,
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                  })
+                }
+              ></Marker>
+            )}
           </FeatureGroup>
         </MapContainer>
       ) : (

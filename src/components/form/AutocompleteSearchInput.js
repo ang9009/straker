@@ -15,10 +15,17 @@ const AutocompleteSelect = ({ selected, setSelected, placeholder }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    // Clear options and selected if input is cleared
+    if (input === "") {
+      setOptions([]);
+      setSelected([]);
+    }
+
     const delayDebounce = setTimeout(() => {
       // Must check if nothing is selected, otherwise fetch is run unnecessarily a second time
       if (input !== "" && selected.length === 0) {
         setIsLoading(true);
+
         getLocationAutocomplete(input).then((res) => {
           const locationsInfo = res.features;
           const locations = [];
@@ -30,7 +37,6 @@ const AutocompleteSelect = ({ selected, setSelected, placeholder }) => {
               lat: location.geometry.coordinates[1],
               lng: location.geometry.coordinates[0],
             };
-
             locations.push({
               value: coords,
               label: location.properties.formatted,
@@ -42,16 +48,10 @@ const AutocompleteSelect = ({ selected, setSelected, placeholder }) => {
         });
       }
     }, 1000);
-
-    // Clear options and selected if input is cleared
-    if (input === "") {
-      setOptions([]);
-      setSelected([]);
-    }
     return () => clearTimeout(delayDebounce);
   }, [input]);
 
-  // Required for marker onDrag event to update input
+  // Required for marker onDrag event to updaet input
   useEffect(() => {
     if (selected.length !== 0) {
       setInput(selected.label);
@@ -86,7 +86,6 @@ const AutocompleteSelect = ({ selected, setSelected, placeholder }) => {
   return (
     <Select
       value={selected}
-      noOptionsMessage={() => null}
       filterOption={customFilter()}
       inputId={placeholder}
       placeholder={placeholder}
@@ -102,6 +101,7 @@ const AutocompleteSelect = ({ selected, setSelected, placeholder }) => {
       }}
       options={options}
       isLoading={isLoading}
+      noOptionsMessage={() => null}
     />
   );
 };
