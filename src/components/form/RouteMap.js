@@ -82,6 +82,17 @@ const RouteMap = ({
   const corner2 = latLng(90, 180);
   const worldBounds = latLngBounds(corner1, corner2);
 
+  const handleDragEnd = (marker, setSelected) => {
+    const currMarker = marker.current;
+    const coords = currMarker.getLatLng();
+    getLocationFromCoords(coords).then((res) => {
+      setSelected({
+        value: coords,
+        label: res?.features[0].properties.formatted,
+      });
+    });
+  };
+
   return (
     <>
       {isLoading ? (
@@ -118,16 +129,8 @@ const RouteMap = ({
                   draggable={true}
                   ref={startMarkerRef}
                   eventHandlers={{
-                    dragend: () => {
-                      const marker = startMarkerRef.current;
-                      const coords = marker.getLatLng();
-                      getLocationFromCoords(coords).then((res) => {
-                        setSelectedStartLocation({
-                          value: coords,
-                          label: res?.features[0].properties.formatted,
-                        });
-                      });
-                    },
+                    dragend: () =>
+                      handleDragEnd(startMarkerRef, setSelectedStartLocation),
                   }}
                   icon={
                     new Icon({
@@ -145,16 +148,8 @@ const RouteMap = ({
                   draggable={true}
                   ref={endMarkerRef}
                   eventHandlers={{
-                    dragend: () => {
-                      const marker = endMarkerRef.current;
-                      const coords = marker.getLatLng();
-                      getLocationFromCoords(coords).then((res) => {
-                        setSelectedEndLocation({
-                          value: coords,
-                          label: res.features[0].properties.formatted,
-                        });
-                      });
-                    },
+                    dragend: () =>
+                      handleDragEnd(endMarkerRef, setSelectedEndLocation),
                   }}
                   icon={
                     new Icon({
