@@ -14,7 +14,7 @@ const LocationSearchInput = ({
   return (
     <>
       <div className="search-input-container">
-        <FiMapPin style={{ marginRight: "15px", color: "blue" }} />
+        <FiMapPin style={{ marginRight: "15px", color: "#5490f5" }} />
         <AutocompleteSearchInput
           selected={selectedStartLocation}
           setSelected={setSelectedStartLocation}
@@ -22,7 +22,7 @@ const LocationSearchInput = ({
         />
       </div>
       <div className="search-input-container">
-        <FiMapPin style={{ marginRight: "15px", color: "red" }} />
+        <FiMapPin style={{ marginRight: "15px", color: "#eb4f24" }} />
         <AutocompleteSearchInput
           selected={selectedEndLocation}
           setSelected={setSelectedEndLocation}

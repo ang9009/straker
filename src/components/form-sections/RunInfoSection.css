@@ -1,0 +1,26 @@
+#date-time-container {
+
+}
+
+.date-time-picker {
+    border-radius: var(--inputBorderRadius);
+    border: var(--borderThickness) solid var(--inputBorderColor);
+    padding: var(--inputPadding);
+    width: 100%;
+    box-shadow: var(--inputBoxShadow);
+}
+
+.date-time-picker > div{
+    border: none;
+}
+
+.date-time-picker input:focus{
+    outline: var(--inputFocusedBorder);
+    border-radius: 2px;
+}
+
+
+.date-time-widgets {
+    border-radius: var(--inputBorderRadius);
+    border: var(--borderThickness) solid var(--inputBorderColor);
+}

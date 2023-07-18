@@ -5,6 +5,8 @@ import "./EditingPane.css";
 
 import { useState } from "react";
 import RouteSection from "../form-sections/RouteSection";
+import RunInfoSection from "../form-sections/RunInfoSection";
+import RunDataSection from "../form-sections/RunDataSection";
 
 const EditingPane = () => {
   // Profile section
@@ -17,6 +19,10 @@ const EditingPane = () => {
   // Route section
   const [selectedStartLocation, setSelectedStartLocation] = useState([]);
   const [selectedEndLocation, setSelectedEndLocation] = useState([]);
+
+  // Run info section
+  const [value, onChange] = useState(new Date());
+  const [location, setLocation] = useState("");
 
   return (
     <div id="editingpane-container">
@@ -40,6 +46,14 @@ const EditingPane = () => {
           selectedEndLocation={selectedEndLocation}
           setSelectedEndLocation={setSelectedEndLocation}
         />
+        <RunInfoSection
+          value={value}
+          onChange={onChange}
+          location={location}
+          setLocation={setLocation}
+          s
+        />
+        <RunDataSection />
       </div>
     </div>
   );

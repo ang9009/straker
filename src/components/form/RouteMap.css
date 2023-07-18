@@ -1,9 +1,13 @@
 .leaflet-container {
+    height: 100%;
+    width: 100%;    
+    z-index: 0;
+}
+
+#routemap-container {
     height: 350px;
     border-radius: var(--inputBorderRadius);
     margin-top: var(--inputMarginTop);
-    width: 100%;    
-    z-index: 0;
 }
 
 #fullscreen-btn {
@@ -26,3 +30,9 @@
 #fullscreen-btn:hover {
     transform: scale(1.1);
 }
+
+#polyline-loading-msg {
+    margin-top: 10px;    
+    color: gray;
+    font-size: 12px;
+  }

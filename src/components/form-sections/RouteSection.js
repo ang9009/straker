@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import "./RouteSection.css";
 import RouteMap from "../form/RouteMap";
 import { FiNavigation } from "react-icons/fi";

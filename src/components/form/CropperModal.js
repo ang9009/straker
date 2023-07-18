@@ -2,7 +2,7 @@ import Cropper from "react-easy-crop";
 import ReactModal from "react-modal";
 import "./CropperModal.css";
 import { cropperStyles } from "../../data/cropperStyles";
-import { modalStyles } from "../../data/modalStyles";
+import { modalStyles } from "../../data/cropModalStyles";
 import { useCallback, useState } from "react";
 import PrimaryButton from "../ui/PrimaryButton";
 import getCroppedImg from "../../utils/cropImage";
@@ -14,6 +14,11 @@ const CropperModal = ({ setProfileImg, isOpen, setIsOpen, croppedImg }) => {
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
+  const resetZoomCrop = () => {
+    setZoom(1);
+    setCrop({ x: 0, y: 0 });
+  };
+
   const onCropComplete = useCallback((_, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
@@ -21,18 +26,19 @@ const CropperModal = ({ setProfileImg, isOpen, setIsOpen, croppedImg }) => {
   const applyCrop = async () => {
     const croppedImgUrl = await getCroppedImg(croppedImg, croppedAreaPixels);
     setProfileImg(croppedImgUrl);
+    resetZoomCrop();
   };
 
   // Modal
   const handleCancel = () => {
     setIsOpen(false);
-    setZoom(1);
+    resetZoomCrop();
   };
 
   const handleApply = () => {
-    applyCrop();
-    setZoom(1);
     setIsOpen(false);
+    applyCrop();
+    resetZoomCrop();
   };
 
   return (
@@ -41,8 +47,7 @@ const CropperModal = ({ setProfileImg, isOpen, setIsOpen, croppedImg }) => {
       style={modalStyles}
       closeTimeoutMS={500}
       onRequestClose={() => {
-        setProfileImg("../../assets/profile.png");
-        setZoom(1);
+        resetZoomCrop();
         setIsOpen(false);
       }}
     >
