@@ -10,22 +10,24 @@ const RunInfoSection = ({ value, onChange, location, setLocation }) => {
         <FiFileText size={"13px"} color={"var(--primaryIconColor)"} />
         <p>Run info</p>
       </h1>
-      <div id="date-time-container">
-        <p className="input-label">Date and time</p>
-        <DateTimePicker
-          onChange={onChange}
-          value={value}
-          className={"date-time-picker"}
-          calendarClassName={"date-time-widgets"}
-          disableClock={true}
+      <div className="form-section-inputs-container">
+        <div id="date-time-container">
+          <p className="input-label">Date and time</p>
+          <DateTimePicker
+            onChange={onChange}
+            value={value}
+            className={"date-time-picker"}
+            calendarClassName={"date-time-widgets"}
+            disableClock={true}
+          />
+        </div>
+        <TextInput
+          inputLabel={"Location"}
+          placeholder={"e.g. San Francisco, California"}
+          content={location}
+          setContent={setLocation}
         />
       </div>
-      <TextInput
-        inputLabel={"Location"}
-        placeholder={"Enter location"}
-        content={location}
-        setContent={setLocation}
-      />
     </div>
   );
 };

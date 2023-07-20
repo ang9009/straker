@@ -8,6 +8,8 @@ const RouteSection = ({
   setSelectedStartLocation,
   selectedEndLocation,
   setSelectedEndLocation,
+  setDistance,
+  setElevationGain,
 }) => {
   return (
     <>
@@ -21,6 +23,8 @@ const RouteSection = ({
           setSelectedStartLocation={setSelectedStartLocation}
           selectedEndLocation={selectedEndLocation}
           setSelectedEndLocation={setSelectedEndLocation}
+          setDistance={setDistance}
+          setElevationGain={setElevationGain}
         />
         <LocationSearchInput
           selectedStartLocation={selectedStartLocation}

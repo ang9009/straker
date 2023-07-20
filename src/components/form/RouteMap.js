@@ -20,6 +20,8 @@ const RouteMap = ({
   selectedEndLocation,
   setSelectedStartLocation,
   setSelectedEndLocation,
+  setDistance,
+  setElevationGain,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isFetchingPolyline, setIsFetchingPolyline] = useState(false);
@@ -64,14 +66,17 @@ const RouteMap = ({
           if (res.error) {
             throw new Error(res.message);
           }
-
+          const features = res.features[0];
           const newPolyline = [];
 
-          res.features[0].geometry.coordinates[0].forEach((coords) => {
+          // Coordinates in wrong order, push to new array
+          features.geometry.coordinates[0].forEach((coords) => {
             newPolyline.push([coords[1], coords[0]]);
           });
 
           setPolyline(newPolyline);
+          setDistance((features.properties.distance / 1000).toFixed(2));
+          setElevationGain(Math.max(...features.properties.legs[0].elevation));
           setIsFetchingPolyline(false);
         })
         .catch((error) => {

@@ -1,0 +1,25 @@
+.data-inputs-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: var(--inputMarginTop);
+}
+
+.react-time-picker__inputGroup__amPm {
+    display: none;
+}
+
+.react-time-picker {
+    width: 100%;
+}
+
+.react-time-picker__wrapper {
+    border-radius: var(--inputBorderRadius);
+    border: var(--borderThickness) solid var(--inputBorderColor);
+    padding: var(--inputPadding);
+    box-shadow: var(--inputBoxShadow);
+}
+
+.react-time-picker__wrapper input:focus{
+    outline: var(--inputFocusedBorder);
+    border-radius: 2px;
+}

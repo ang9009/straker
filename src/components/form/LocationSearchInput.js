@@ -18,7 +18,7 @@ const LocationSearchInput = ({
         <AutocompleteSearchInput
           selected={selectedStartLocation}
           setSelected={setSelectedStartLocation}
-          placeholder={"Set starting point..."}
+          placeholder={"Set starting point"}
         />
       </div>
       <div className="search-input-container">
@@ -26,7 +26,7 @@ const LocationSearchInput = ({
         <AutocompleteSearchInput
           selected={selectedEndLocation}
           setSelected={setSelectedEndLocation}
-          placeholder={"Set ending point..."}
+          placeholder={"Set ending point"}
         />
       </div>
     </>

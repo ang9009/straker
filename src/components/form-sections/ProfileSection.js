@@ -10,16 +10,18 @@ const ProfileSection = ({ profileImg, setProfileImg, name, setName }) => {
         <FiUser color={"var(--primaryIconColor)"} />
         <p>Profile</p>
       </h1>
-      <ProfilePictureDropzone
-        profileImg={profileImg}
-        setProfileImg={setProfileImg}
-      />
-      <TextInput
-        inputLabel={"Name"}
-        placeholder={"e.g. John Doe"}
-        content={name}
-        setContent={setName}
-      />
+      <div className="form-section-inputs-container">
+        <ProfilePictureDropzone
+          profileImg={profileImg}
+          setProfileImg={setProfileImg}
+        />
+        <TextInput
+          inputLabel={"Name"}
+          placeholder={"e.g. John Doe"}
+          content={name}
+          setContent={setName}
+        />
+      </div>
     </div>
   );
 };

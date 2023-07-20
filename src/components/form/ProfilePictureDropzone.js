@@ -46,7 +46,7 @@ const ProfilePictureDropzone = ({ profileImg, setProfileImg }) => {
             <input {...getInputProps()} />
             <FiFile color={"var(--primaryIconColor)"} />
             <p>
-              <span>Click to upload</span> or drag and drop...
+              <span>Click to upload</span> or drag and drop
             </p>
           </div>
         </div>

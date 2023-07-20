@@ -8,6 +8,7 @@ import "react-tooltip/dist/react-tooltip.css";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-clock/dist/Clock.css";
 import "react-calendar/dist/Calendar.css";
+import "react-time-picker/dist/TimePicker.css";
 
 function App() {
   Modal.setAppElement("#root");

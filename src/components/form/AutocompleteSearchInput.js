@@ -26,13 +26,13 @@ const AutocompleteSelect = ({ selected, setSelected, placeholder }) => {
           const locationsInfo = res.features;
           const locations = [];
 
-          // TODO: add error message if too many requests/location not allowed? + this component is too long
           locationsInfo.forEach((location) => {
             // Reordered because API returns them in wrong order (should be lat first then lng)
             const coords = {
               lat: location.geometry.coordinates[1],
               lng: location.geometry.coordinates[0],
             };
+
             locations.push({
               value: coords,
               label: location.properties.formatted,
@@ -43,7 +43,7 @@ const AutocompleteSelect = ({ selected, setSelected, placeholder }) => {
           setIsLoading(false);
         });
       }
-    }, 1000);
+    }, 500);
 
     return () => clearTimeout(delayDebounce);
   }, [input]);
@@ -99,7 +99,7 @@ const AutocompleteSelect = ({ selected, setSelected, placeholder }) => {
       }}
       options={options}
       isLoading={isLoading}
-      noOptionsMessage={() => null}
+      noOptionsMessage={() => "No results found!"}
     />
   );
 };

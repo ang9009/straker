@@ -1,7 +1,13 @@
 import { useRef } from "react";
 import "./TextInput.css";
 
-const TextInput = ({ inputLabel, placeholder, content, setContent }) => {
+const TextInput = ({
+  inputLabel,
+  placeholder,
+  content,
+  setContent,
+  isDisabled,
+}) => {
   const textInput = useRef(0);
 
   return (
@@ -13,6 +19,7 @@ const TextInput = ({ inputLabel, placeholder, content, setContent }) => {
         placeholder={placeholder}
         id="text-input"
         value={content}
+        disabled={isDisabled}
         onKeyDown={(e) => {
           if (e.key === "Escape") {
             textInput.current.blur();

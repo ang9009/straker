@@ -24,6 +24,10 @@ const EditingPane = () => {
   const [value, onChange] = useState(new Date());
   const [location, setLocation] = useState("");
 
+  // Run data section
+  const [distance, setDistance] = useState(null);
+  const [elevationGain, setElevationGain] = useState(null);
+
   return (
     <div id="editingpane-container">
       <Navbar />
@@ -45,15 +49,16 @@ const EditingPane = () => {
           setSelectedStartLocation={setSelectedStartLocation}
           selectedEndLocation={selectedEndLocation}
           setSelectedEndLocation={setSelectedEndLocation}
+          setDistance={setDistance}
+          setElevationGain={setElevationGain}
         />
         <RunInfoSection
           value={value}
           onChange={onChange}
           location={location}
           setLocation={setLocation}
-          s
         />
-        <RunDataSection />
+        <RunDataSection distance={distance} elevationGain={elevationGain} />
       </div>
     </div>
   );

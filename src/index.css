@@ -55,6 +55,10 @@
   font-size: 12px;
 }
 
+.form-section-inputs-container .input-label:not(:last-child) {
+  margin-top: var(--inputMarginTop);
+}
+
 /* React modal */
 .ReactModal__Overlay { 
   opacity: 0;

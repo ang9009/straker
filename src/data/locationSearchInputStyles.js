@@ -41,8 +41,9 @@ export const locationSearchInputStyles = {
   }),
   container: (baseStyles) => ({
     ...baseStyles,
-    width: "calc(100% - 29.22px)",
     outline: "none",
     border: "none",
+    flexGrow: "1",
+    maxWidth: "calc(100% - 31px)",
   }),
 };
