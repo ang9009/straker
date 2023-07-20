@@ -1,5 +1,5 @@
 #editingpane-container {
-    width: 35vw;
+    width: 40vw;
     height: 100%;    
     border: var(--borderThickness) solid var(--primaryBorderColor);
     border-radius: 12px 0 0 12px;

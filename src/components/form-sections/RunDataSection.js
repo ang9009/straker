@@ -3,7 +3,16 @@ import "./RunDataSection.css";
 import TextInput from "../form/TextInput";
 import TimePicker from "react-time-picker";
 
-const RunDataSection = ({ distance, elevationGain }) => {
+const RunDataSection = ({
+  distance,
+  elevationGain,
+  onChange,
+  value,
+  caloriesBurned,
+  setCaloriesBurned,
+  heartRate,
+  setHeartRate,
+}) => {
   return (
     <div className="form-section-container">
       <h1 className="form-section-title">
@@ -18,7 +27,7 @@ const RunDataSection = ({ distance, elevationGain }) => {
           isDisabled={true}
         />
         <TextInput
-          inputLabel={"Elevation gain (km)"}
+          inputLabel={"Elevation gain (m)"}
           placeholder={"Automatically calculated"}
           content={elevationGain}
           isDisabled={true}
@@ -28,18 +37,24 @@ const RunDataSection = ({ distance, elevationGain }) => {
           <TimePicker
             disableClock={true}
             format={"hh:mm:ss"}
-            maxTime={"99:59:59"}
+            hourPlaceholder={"hh"}
+            minutePlaceholder={"mm"}
+            secondPlaceholder={"ss"}
+            onChange={onChange}
+            value={value}
           />
         </div>
         <TextInput
           inputLabel={"Calories"}
           placeholder={"Enter calories burned"}
-          content={elevationGain}
+          content={caloriesBurned}
+          setContent={setCaloriesBurned}
         />
         <TextInput
           inputLabel={"Average heart rate (bpm)"}
           placeholder={"E.g. 130 bpm"}
-          content={elevationGain}
+          content={heartRate}
+          setContent={setHeartRate}
         />
         <TextInput
           inputLabel={"Average pace"}
