@@ -120,66 +120,61 @@ const RouteMap = ({
         />
       ) : (
         <div>
-          <div id="routemap-container">
-            <MapContainer
-              center={center}
-              zoom={13}
-              scrollWheelZoom={true}
-              ref={mapRef}
-              maxBoundsViscosity={1.0}
-              maxBounds={worldBounds}
-              maxZoom={17}
-              minZoom={2}
-            >
-              <Polyline
-                pathOptions={{ color: "#FC5201" }}
-                positions={polyline}
-              />
-              <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                noWrap={true}
-              />
-              <FeatureGroup ref={groupRef}>
-                {selectedStartLocation.length !== 0 && (
-                  <Marker
-                    position={selectedStartLocation.value || center}
-                    draggable={true}
-                    ref={startMarkerRef}
-                    eventHandlers={{
-                      dragend: () =>
-                        handleDragEnd(startMarkerRef, setSelectedStartLocation),
-                    }}
-                    icon={
-                      new Icon({
-                        iconUrl: startMarkerSvg,
-                        iconSize: [25, 41],
-                        iconAnchor: [12, 41],
-                        className: "start-marker",
-                      })
-                    }
-                  ></Marker>
-                )}
-                {selectedEndLocation.length !== 0 && (
-                  <Marker
-                    position={selectedEndLocation.value || center}
-                    draggable={true}
-                    ref={endMarkerRef}
-                    eventHandlers={{
-                      dragend: () =>
-                        handleDragEnd(endMarkerRef, setSelectedEndLocation),
-                    }}
-                    icon={
-                      new Icon({
-                        iconUrl: endMarkerSvg,
-                        iconSize: [25, 41],
-                        iconAnchor: [12, 41],
-                      })
-                    }
-                  ></Marker>
-                )}
-              </FeatureGroup>
-            </MapContainer>
-          </div>
+          <MapContainer
+            center={center}
+            zoom={13}
+            scrollWheelZoom={true}
+            ref={mapRef}
+            maxBoundsViscosity={1.0}
+            maxBounds={worldBounds}
+            maxZoom={17}
+            minZoom={2}
+          >
+            <Polyline pathOptions={{ color: "#FC5201" }} positions={polyline} />
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              noWrap={true}
+            />
+            <FeatureGroup ref={groupRef}>
+              {selectedStartLocation.length !== 0 && (
+                <Marker
+                  position={selectedStartLocation.value || center}
+                  draggable={true}
+                  ref={startMarkerRef}
+                  eventHandlers={{
+                    dragend: () =>
+                      handleDragEnd(startMarkerRef, setSelectedStartLocation),
+                  }}
+                  icon={
+                    new Icon({
+                      iconUrl: startMarkerSvg,
+                      iconSize: [25, 41],
+                      iconAnchor: [12, 41],
+                      className: "start-marker",
+                    })
+                  }
+                ></Marker>
+              )}
+              {selectedEndLocation.length !== 0 && (
+                <Marker
+                  position={selectedEndLocation.value || center}
+                  draggable={true}
+                  ref={endMarkerRef}
+                  eventHandlers={{
+                    dragend: () =>
+                      handleDragEnd(endMarkerRef, setSelectedEndLocation),
+                  }}
+                  icon={
+                    new Icon({
+                      iconUrl: endMarkerSvg,
+                      iconSize: [25, 41],
+                      iconAnchor: [12, 41],
+                    })
+                  }
+                ></Marker>
+              )}
+            </FeatureGroup>
+          </MapContainer>
           {error && <p className="error-msg">{error}</p>}
         </div>
       )}

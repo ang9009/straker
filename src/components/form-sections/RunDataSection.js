@@ -1,8 +1,9 @@
 import { FiFileText } from "react-icons/fi";
 import "./RunDataSection.css";
 import TextInput from "../form/TextInput";
-import TimePicker from "react-time-picker";
-import { useState } from "react";
+import { InputNumber, TimePicker } from "antd";
+import { useEffect } from "react";
+import { getPace } from "../../utils/getPace";
 
 const RunDataSection = ({
   distance,
@@ -13,7 +14,16 @@ const RunDataSection = ({
   setCaloriesBurned,
   heartRate,
   setHeartRate,
+  pace,
+  setPace,
 }) => {
+  useEffect(() => {
+    if (value && distance) {
+      const pace = getPace(value, distance);
+      setPace(pace);
+    }
+  }, [distance, value]);
+
   return (
     <div className="form-section-container">
       <h1 className="form-section-title">
@@ -36,28 +46,32 @@ const RunDataSection = ({
         <div className="time-picker-input">
           <p className="input-label">Moving time</p>
           <TimePicker
-            onChange={onChange}
             value={value}
-            disableClock={true}
-            maxDetail={"second"}
+            onChange={(time) => {
+              onChange(time);
+            }}
+          />
+        </div>
+        <div>
+          <p className="input-label">Calories</p>
+          <InputNumber
+            placeholder={"Enter calories burned"}
+            value={caloriesBurned}
+            onChange={setCaloriesBurned}
+          />
+        </div>
+        <div>
+          <p className="input-label">Average heart rate (bpm)</p>
+          <InputNumber
+            placeholder={"E.g. 130"}
+            value={heartRate}
+            onChange={setHeartRate}
           />
         </div>
         <TextInput
-          inputLabel={"Calories"}
-          placeholder={"Enter calories burned"}
-          content={caloriesBurned}
-          setContent={setCaloriesBurned}
-        />
-        <TextInput
-          inputLabel={"Average heart rate (bpm)"}
-          placeholder={"E.g. 130 bpm"}
-          content={heartRate}
-          setContent={setHeartRate}
-        />
-        <TextInput
-          inputLabel={"Average pace"}
+          inputLabel={"Average pace (min/km)"}
           placeholder={"Automatically calculated"}
-          content={elevationGain}
+          content={pace}
           isDisabled={true}
         />
       </div>
