@@ -14,6 +14,7 @@ import { getLocationFromCoords } from "../../queries/getLocationFromCoords";
 import { getPolylineCoords } from "../../queries/getPolylineCoords";
 import "./RouteMap.css";
 import "leaflet/dist/leaflet.css";
+import { toast } from "react-toastify";
 
 const RouteMap = ({
   selectedStartLocation,
@@ -61,11 +62,17 @@ const RouteMap = ({
       setError("");
       setIsFetchingPolyline(true);
 
-      getPolylineCoords(selectedStartLocation.value, selectedEndLocation.value)
+      const coords = {
+        start: selectedStartLocation.value,
+        end: selectedEndLocation.value,
+      };
+
+      toast
+        .promise(getPolylineCoords(coords.start, coords.end), {
+          pending: "Fetching route...",
+          error: `An error occurred!`,
+        })
         .then((res) => {
-          if (res.error) {
-            throw new Error(res.message);
-          }
           const features = res.features[0];
           const newPolyline = [];
 
@@ -174,11 +181,6 @@ const RouteMap = ({
             </MapContainer>
           </div>
           {error && <p className="error-msg">{error}</p>}
-          {isFetchingPolyline && (
-            <p id="polyline-loading-msg">
-              Attempting to generate route, please wait...
-            </p>
-          )}
         </div>
       )}
     </>

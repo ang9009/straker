@@ -27,10 +27,9 @@ const EditingPane = () => {
   // Run data section
   const [distance, setDistance] = useState(null);
   const [elevationGain, setElevationGain] = useState(null);
-  const [runDurationValue, runDurationOnChange] = useState("");
+  const [timeValue, timeOnChange] = useState("10:00");
   const [caloriesBurned, setCaloriesBurned] = useState(null);
   const [heartRate, setHeartRate] = useState(null);
-  console.log(runDurationValue);
 
   return (
     <div id="editingpane-container">
@@ -65,9 +64,9 @@ const EditingPane = () => {
         <RunDataSection
           distance={distance}
           elevationGain={elevationGain}
-          onChange={runDurationOnChange}
-          value={runDurationValue}
+          onChange={timeOnChange}
           caloriesBurned={caloriesBurned}
+          value={timeValue}
           setCaloriesBurned={setCaloriesBurned}
           heartRate={heartRate}
           setHeartRate={setHeartRate}

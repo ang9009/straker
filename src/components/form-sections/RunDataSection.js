@@ -2,12 +2,13 @@ import { FiFileText } from "react-icons/fi";
 import "./RunDataSection.css";
 import TextInput from "../form/TextInput";
 import TimePicker from "react-time-picker";
+import { useState } from "react";
 
 const RunDataSection = ({
   distance,
   elevationGain,
-  onChange,
   value,
+  onChange,
   caloriesBurned,
   setCaloriesBurned,
   heartRate,
@@ -35,13 +36,10 @@ const RunDataSection = ({
         <div className="time-picker-input">
           <p className="input-label">Moving time</p>
           <TimePicker
-            disableClock={true}
-            format={"hh:mm:ss"}
-            hourPlaceholder={"hh"}
-            minutePlaceholder={"mm"}
-            secondPlaceholder={"ss"}
             onChange={onChange}
             value={value}
+            disableClock={true}
+            maxDetail={"second"}
           />
         </div>
         <TextInput

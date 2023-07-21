@@ -9,6 +9,8 @@ import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-clock/dist/Clock.css";
 import "react-calendar/dist/Calendar.css";
 import "react-time-picker/dist/TimePicker.css";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   Modal.setAppElement("#root");
@@ -17,6 +19,7 @@ function App() {
     <div id="root">
       <PhonePreview />
       <EditingPane />
+      <ToastContainer />
     </div>
   );
 }
