@@ -1,9 +1,8 @@
 import { FiFileText } from "react-icons/fi";
 import "./RunInfoSection.css";
 import DateTimePicker from "react-datetime-picker";
-import TextInput from "../form/TextInput";
 
-const RunInfoSection = ({ value, onChange, location, setLocation }) => {
+const RunInfoSection = ({ value, onChange }) => {
   return (
     <div className="form-section-container">
       <h1 className="form-section-title">
@@ -21,12 +20,6 @@ const RunInfoSection = ({ value, onChange, location, setLocation }) => {
             disableClock={true}
           />
         </div>
-        <TextInput
-          inputLabel={"Location"}
-          placeholder={"e.g. San Francisco, California"}
-          content={location}
-          setContent={setLocation}
-        />
       </div>
     </div>
   );

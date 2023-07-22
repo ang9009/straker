@@ -2,7 +2,7 @@ import { FiFileText } from "react-icons/fi";
 import "./RunDataSection.css";
 import TextInput from "../form/TextInput";
 import { InputNumber, TimePicker } from "antd";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getPace } from "../../utils/getPace";
 
 const RunDataSection = ({
@@ -18,6 +18,7 @@ const RunDataSection = ({
   setPace,
 }) => {
   useEffect(() => {
+    console.log(value, distance);
     if (value && distance) {
       const pace = getPace(value, distance);
       setPace(pace);

@@ -3,62 +3,54 @@ import TitleInput from "./TitleInput";
 import ProfileSection from "../form-sections/ProfileSection";
 import "./EditingPane.css";
 
-import { useState } from "react";
 import RouteSection from "../form-sections/RouteSection";
 import RunInfoSection from "../form-sections/RunInfoSection";
 import RunDataSection from "../form-sections/RunDataSection";
 import SubmitButtons from "./SubmitButtons";
 
-const EditingPane = () => {
-  // Profile section
-  const [profileData, setProfileData] = useState({
-    title: "",
-    profileImg: "",
-    name: "",
-  });
-
-  const profileHandleChange = (e) => {
-    setProfileData({ ...profileData, [e.target.name]: e.target.value });
-  };
-
-  const [title, setTitle] = useState("Untitled run");
-  const [profileImg, setProfileImg] = useState(
-    require("../../assets/profile.png")
-  );
-  const [name, setName] = useState("");
-
-  // Route section
-  const [selectedStartLocation, setSelectedStartLocation] = useState([]);
-  const [selectedEndLocation, setSelectedEndLocation] = useState([]);
-
-  // Run info section
-  const [dateTimeValue, dateTimeOnChange] = useState(new Date());
-  const [location, setLocation] = useState("");
-
-  // Run data section
-  const [distance, setDistance] = useState("");
-  const [elevationGain, setElevationGain] = useState("");
-  const [timeValue, timeOnChange] = useState("");
-  const [caloriesBurned, setCaloriesBurned] = useState("");
-  const [heartRate, setHeartRate] = useState("");
-  const [pace, setPace] = useState("");
-
+const EditingPane = ({
+  profileData,
+  selectedStartLocation,
+  setSelectedStartLocation,
+  selectedEndLocation,
+  setSelectedEndLocation,
+  dateTimeValue,
+  dateTimeOnChange,
+  map,
+  setMap,
+  distance,
+  setDistance,
+  elevationGain,
+  setElevationGain,
+  timeValue,
+  timeOnChange,
+  caloriesBurned,
+  setCaloriesBurned,
+  heartRate,
+  setHeartRate,
+  pace,
+  setPace,
+  profileHandleChange,
+  polyline,
+  setPolyline,
+  zoomCenter,
+  setZoomCenter,
+}) => {
   return (
     <div id="editingpane-container">
       <Navbar />
       <div id="form-container">
         <TitleInput
-          title={title}
-          setTitle={setTitle}
+          title={profileData.title}
+          handleTitleChange={profileHandleChange}
           defaultTitle={"Untitled run"}
           charLimit={30}
         />
         <ProfileSection
-          profileImg={profileImg}
-          setProfileImg={setProfileImg}
-          name={name}
-          setName={setName}
+          profileData={profileData}
+          profileHandleChange={profileHandleChange}
         />
+        <RunInfoSection value={dateTimeValue} onChange={dateTimeOnChange} />
         <RouteSection
           selectedStartLocation={selectedStartLocation}
           setSelectedStartLocation={setSelectedStartLocation}
@@ -66,19 +58,17 @@ const EditingPane = () => {
           setSelectedEndLocation={setSelectedEndLocation}
           setDistance={setDistance}
           setElevationGain={setElevationGain}
-        />
-        <RunInfoSection
-          value={dateTimeValue}
-          onChange={dateTimeOnChange}
-          location={location}
-          setLocation={setLocation}
+          polyline={polyline}
+          setPolyline={setPolyline}
+          zoomCenter={zoomCenter}
+          setZoomCenter={setZoomCenter}
         />
         <RunDataSection
           distance={distance}
           elevationGain={elevationGain}
-          onChange={timeOnChange}
           caloriesBurned={caloriesBurned}
           value={timeValue}
+          onChange={timeOnChange}
           setCaloriesBurned={setCaloriesBurned}
           heartRate={heartRate}
           setHeartRate={setHeartRate}

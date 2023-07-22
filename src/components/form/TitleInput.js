@@ -1,6 +1,6 @@
 import "./TitleInput.css";
 import { useState, useRef, useLayoutEffect } from "react";
-const TitleInput = ({ title, setTitle, defaultTitle, charLimit }) => {
+const TitleInput = ({ title, handleTitleChange, defaultTitle, charLimit }) => {
   const [width, setWidth] = useState(0);
   const span = useRef(0);
   const titleInput = useRef(0);
@@ -18,11 +18,12 @@ const TitleInput = ({ title, setTitle, defaultTitle, charLimit }) => {
       <input
         type="text"
         className="title-input"
+        name="title"
         value={title}
         ref={titleInput}
         onChange={(e) => {
           if (!(e.target.value.length > charLimit)) {
-            setTitle(e.target.value);
+            handleTitleChange(e);
           }
         }}
         onClick={(e) => {
@@ -37,12 +38,14 @@ const TitleInput = ({ title, setTitle, defaultTitle, charLimit }) => {
         }}
         onBlur={(e) => {
           if (e.target.value === "") {
-            setTitle(defaultTitle);
+            handleTitleChange({
+              target: { value: defaultTitle, name: e.target.name },
+            });
           }
         }}
         style={{ width }}
       />
-      {title.length >= charLimit && (
+      {title?.length >= charLimit && (
         <p className="error-msg" id="title-error-msg">
           Maximum character limit reached ({charLimit})
         </p>

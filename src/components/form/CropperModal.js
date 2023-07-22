@@ -25,7 +25,7 @@ const CropperModal = ({ setProfileImg, isOpen, setIsOpen, croppedImg }) => {
 
   const applyCrop = async () => {
     const croppedImgUrl = await getCroppedImg(croppedImg, croppedAreaPixels);
-    setProfileImg(croppedImgUrl);
+    setProfileImg({ target: { value: croppedImgUrl, name: "profileImg" } });
     resetZoomCrop();
   };
 

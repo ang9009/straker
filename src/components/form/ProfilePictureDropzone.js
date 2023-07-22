@@ -43,7 +43,7 @@ const ProfilePictureDropzone = ({ profileImg, setProfileImg }) => {
         <div className="image-and-dropzone-container">
           <img src={profileImg} alt="" style={{ borderRadius: "50%" }} />
           <div {...getRootProps({ className: "dropzone", style })}>
-            <input {...getInputProps()} />
+            <input {...getInputProps()} name="profileImg" />
             <FiFile color={"var(--primaryIconColor)"} />
             <p>
               <span>Click to upload</span> or drag and drop

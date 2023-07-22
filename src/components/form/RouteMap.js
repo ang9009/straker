@@ -15,6 +15,7 @@ import { getPolylineCoords } from "../../queries/getPolylineCoords";
 import "./RouteMap.css";
 import "leaflet/dist/leaflet.css";
 import { toast } from "react-toastify";
+import CenterZoomTracker from "./CenterZoomTracker";
 
 const RouteMap = ({
   selectedStartLocation,
@@ -23,13 +24,15 @@ const RouteMap = ({
   setSelectedEndLocation,
   setDistance,
   setElevationGain,
+  polyline,
+  setPolyline,
+  zoomCenter,
+  setZoomCenter,
 }) => {
+  const [map, setMap] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isFetchingPolyline, setIsFetchingPolyline] = useState(false);
   const [center, setCenter] = useState(null);
-  const [polyline, setPolyline] = useState([]);
   const [error, setError] = useState("");
-  const mapRef = useRef(null);
   const groupRef = useRef(null);
   const startMarkerRef = useRef(null);
   const endMarkerRef = useRef(null);
@@ -40,16 +43,19 @@ const RouteMap = ({
     navigator.geolocation.getCurrentPosition((position) => {
       const coords = position.coords;
       setCenter([coords.latitude, coords.longitude]);
+      setZoomCenter({
+        zoom: 12,
+        center: [coords.latitude, coords.longitude],
+      });
       setIsLoading(false);
     });
   }, []);
 
   useEffect(() => {
     if (
-      mapRef.current &&
+      map &&
       (selectedStartLocation.length !== 0 || selectedEndLocation.length !== 0)
     ) {
-      const map = mapRef.current;
       const group = groupRef.current;
       map.fitBounds(group.getBounds());
     }
@@ -60,7 +66,6 @@ const RouteMap = ({
       selectedEndLocation.length !== 0
     ) {
       setError("");
-      setIsFetchingPolyline(true);
 
       const coords = {
         start: selectedStartLocation.value,
@@ -84,12 +89,10 @@ const RouteMap = ({
           setPolyline(newPolyline);
           setDistance((features.properties.distance / 1000).toFixed(2));
           setElevationGain(Math.max(...features.properties.legs[0].elevation));
-          setIsFetchingPolyline(false);
         })
         .catch((error) => {
           setError(error.message);
           setPolyline([]);
-          setIsFetchingPolyline(false);
         });
     }
   }, [selectedStartLocation, selectedEndLocation]);
@@ -122,14 +125,20 @@ const RouteMap = ({
         <div>
           <MapContainer
             center={center}
+            ref={setMap}
             zoom={13}
             scrollWheelZoom={true}
-            ref={mapRef}
             maxBoundsViscosity={1.0}
             maxBounds={worldBounds}
             maxZoom={17}
             minZoom={2}
+            id={"editingpane-map"}
+            zoomSnap={0.5}
           >
+            <CenterZoomTracker
+              setZoomCenter={setZoomCenter}
+              isLoading={isLoading}
+            />
             <Polyline pathOptions={{ color: "#FC5201" }} positions={polyline} />
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

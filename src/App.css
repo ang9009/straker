@@ -13,6 +13,23 @@
   @font-face {
     font-family: 'SF Pro';
     font-weight: 900;
-    src: local('SF Pro'), url(./fonts/SFPRODISPLAYMEDIUM.OTF) format('opentype');
+    src: local('SF Pro'), url(./fonts/SFPRODISPLAYBOLD.OTF) format('opentype');
+  }
+
+  @font-face {
+    font-family: 'Maison Neue';
+    src: local('Maison Neue'), url(./fonts/MaisonNeue-Book.otf) format('opentype');
   }
   
+
+  @font-face {
+    font-family: 'Maison Neue';
+    font-weight: 700;
+    src: local('Maison Neue'), url(./fonts/MaisonNeue-Bold.otf) format('opentype');
+  }
+
+  @font-face {
+    font-family: 'Maison Neue';
+    font-weight: 900;
+    src: local('Maison Neue'), url(./fonts/MaisonNeue-Black.otf) format('opentype');
+  }

@@ -28,6 +28,11 @@ const TextInput = ({
           }
         }}
         onChange={(e) => {
+          if (name === "name") {
+            setContent(e);
+            return;
+          }
+
           setContent(e.target.value);
         }}
       />

@@ -10,6 +10,10 @@ const RouteSection = ({
   setSelectedEndLocation,
   setDistance,
   setElevationGain,
+  polyline,
+  setPolyline,
+  zoomCenter,
+  setZoomCenter,
 }) => {
   return (
     <>
@@ -25,6 +29,10 @@ const RouteSection = ({
           setSelectedEndLocation={setSelectedEndLocation}
           setDistance={setDistance}
           setElevationGain={setElevationGain}
+          polyline={polyline}
+          setPolyline={setPolyline}
+          zoomCenter={zoomCenter}
+          setZoomCenter={setZoomCenter}
         />
         <LocationSearchInput
           selectedStartLocation={selectedStartLocation}
