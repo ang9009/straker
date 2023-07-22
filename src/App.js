@@ -1,6 +1,7 @@
 import PhonePreview from "./components/ui/PhonePreview";
 import EditingPane from "./components/form/EditingPane";
 import Modal from "react-modal";
+import "./App.css";
 import * as dayjs from "dayjs";
 
 // Library styles
@@ -24,4 +25,5 @@ function App() {
     </div>
   );
 }
+a;
 export default App;

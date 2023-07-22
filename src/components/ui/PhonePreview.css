@@ -3,13 +3,121 @@
     display: grid;
     place-items: center;
     user-select: none;
+    position: relative;
 }
 
-img {
-    height: 600px;
+#phone-container *{
+    font-family: "SF Pro", "sans-serif";
+}
+
+#iphone-frame {
+    height: 635px;
     -webkit-user-drag: none;
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
+    position: absolute;
+}
+
+#screenshot {
+    width: 277px;
+    height: 600px;
+    position: absolute;
+    z-index: -10;
+}
+
+#phone-screen-container {
+    width: 277px;
+    height: 600px;
+    background: #fff;
+    opacity: 0.5;
+    border: 1px solid red;
+}
+
+/* Status bar */
+#phone-status-bar {
+    width: 100%;
+    background: #fff;
+    height: 22px;
+    font-weight: bold;
+    font-size: 11px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+#time {
+    margin-left: 23px;
+    margin-right: 4px;
+}
+
+#status-icons {
+    display: flex;
+    align-items: flex-end;
+    margin-right: 9px;
+}
+
+#status-icons p {
+    font-size: 9px;
+    margin: 0 1px;
+}
+
+#battery-icon {
+    height:  10px;
+    margin-left: 3px;
+}
+
+#cell-signal-icon {
+    height:  9px;
+}
+
+/* Top nav */
+#phone-top-nav {
+    position: relative;
+    width: 100%;
+    height: 31px;
+    border-bottom: 1.5px solid var(--screenBorderColor);
+    margin-top: 14px;
+}
+
+#feed-btn {
+    display: flex;
+    align-items: center;
+    color: var(--stravaOrange);
+    font-size: 13px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -4px;
+}
+
+#feed-btn p {
+    transform: translateX(-5px);
+}
+
+#run-text {
+    justify-self: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 13px;
+}
+
+#three-dots {
+    color: var(--stravaOrange);
+    margin-left: auto;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Run info */
+#run-info-container {
+    width: 100%;
+    height: 449px;
+    background: red;
 }

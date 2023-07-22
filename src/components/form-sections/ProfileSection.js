@@ -20,6 +20,7 @@ const ProfileSection = ({ profileImg, setProfileImg, name, setName }) => {
           placeholder={"e.g. John Doe"}
           content={name}
           setContent={setName}
+          name={"name"}
         />
       </div>
     </div>

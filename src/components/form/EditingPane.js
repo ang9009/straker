@@ -7,9 +7,20 @@ import { useState } from "react";
 import RouteSection from "../form-sections/RouteSection";
 import RunInfoSection from "../form-sections/RunInfoSection";
 import RunDataSection from "../form-sections/RunDataSection";
+import SubmitButtons from "./SubmitButtons";
 
 const EditingPane = () => {
   // Profile section
+  const [profileData, setProfileData] = useState({
+    title: "",
+    profileImg: "",
+    name: "",
+  });
+
+  const profileHandleChange = (e) => {
+    setProfileData({ ...profileData, [e.target.name]: e.target.value });
+  };
+
   const [title, setTitle] = useState("Untitled run");
   const [profileImg, setProfileImg] = useState(
     require("../../assets/profile.png")
@@ -74,6 +85,7 @@ const EditingPane = () => {
           pace={pace}
           setPace={setPace}
         />
+        <SubmitButtons />
       </div>
     </div>
   );

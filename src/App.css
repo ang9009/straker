@@ -1,0 +1,18 @@
+@font-face {
+    font-family: 'SF Pro';
+    src: local('SF Pro'), url(./fonts/SFPRODISPLAYREGULAR.OTF) format('opentype');
+  }
+
+  @font-face {
+    font-family: 'SF Pro';
+    font-weight: 700;
+    src: local('SF Pro'), url(./fonts/SFPRODISPLAYMEDIUM.OTF) format('opentype');
+  }
+  
+  
+  @font-face {
+    font-family: 'SF Pro';
+    font-weight: 900;
+    src: local('SF Pro'), url(./fonts/SFPRODISPLAYMEDIUM.OTF) format('opentype');
+  }
+  

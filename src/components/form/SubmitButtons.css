@@ -1,0 +1,15 @@
+.submit-btns-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#save-btn {
+    margin-left: 20px;
+    background: black;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: var(--inputFontSize);
+    border-radius: 5px;
+}

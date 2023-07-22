@@ -7,6 +7,7 @@ const TextInput = ({
   content,
   setContent,
   isDisabled,
+  name,
 }) => {
   const textInput = useRef(0);
 
@@ -20,6 +21,7 @@ const TextInput = ({
         id="text-input"
         value={content}
         disabled={isDisabled}
+        name={name}
         onKeyDown={(e) => {
           if (e.key === "Escape") {
             textInput.current.blur();
