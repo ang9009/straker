@@ -59,6 +59,8 @@ const RunDataSection = ({
             placeholder={"Enter calories burned"}
             value={caloriesBurned}
             onChange={setCaloriesBurned}
+            min={0}
+            max={9999999}
           />
         </div>
         <div>
@@ -67,6 +69,8 @@ const RunDataSection = ({
             placeholder={"E.g. 130"}
             value={heartRate}
             onChange={setHeartRate}
+            min={0}
+            max={9999999}
           />
         </div>
         <TextInput
