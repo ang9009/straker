@@ -84,9 +84,9 @@ const PhonePreview = ({
           </h1>
           {zoomCenter ? (
             <MapContainer
-              zoom={12}
+              zoom={0}
               zoomSnap={0.5}
-              center={zoomCenter.center}
+              center={[0, 0]}
               scrollWheelZoom={false}
               id={"phonepreview-map"}
               zoomControl={false}

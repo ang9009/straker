@@ -45,7 +45,7 @@ function App() {
   const [heartRate, setHeartRate] = useState(null);
   const [pace, setPace] = useState(null);
 
-  const [zoomCenter, setZoomCenter] = useState(null);
+  const [zoomCenter, setZoomCenter] = useState({ zoom: 0, center: [0, 0] });
 
   return (
     <div id="root">

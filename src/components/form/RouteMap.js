@@ -38,20 +38,6 @@ const RouteMap = ({
   const endMarkerRef = useRef(null);
 
   useEffect(() => {
-    setIsLoading(true);
-
-    navigator.geolocation.getCurrentPosition((position) => {
-      const coords = position.coords;
-      setCenter([coords.latitude, coords.longitude]);
-      setZoomCenter({
-        zoom: 12,
-        center: [coords.latitude, coords.longitude],
-      });
-      setIsLoading(false);
-    });
-  }, []);
-
-  useEffect(() => {
     if (
       map &&
       (selectedStartLocation.length !== 0 || selectedEndLocation.length !== 0)
@@ -124,9 +110,9 @@ const RouteMap = ({
       ) : (
         <div>
           <MapContainer
-            center={center}
+            center={[0, 0]}
             ref={setMap}
-            zoom={13}
+            zoom={0}
             scrollWheelZoom={true}
             maxBoundsViscosity={1.0}
             maxBounds={worldBounds}
