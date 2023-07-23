@@ -35,15 +35,15 @@ function App() {
 
   // Run info section
   const [dateTimeValue, dateTimeOnChange] = useState(new Date());
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState(null);
 
   // Run data section
-  const [distance, setDistance] = useState("");
-  const [elevationGain, setElevationGain] = useState("");
-  const [timeValue, timeOnChange] = useState("");
-  const [caloriesBurned, setCaloriesBurned] = useState("");
-  const [heartRate, setHeartRate] = useState("");
-  const [pace, setPace] = useState("");
+  const [distance, setDistance] = useState(null);
+  const [elevationGain, setElevationGain] = useState(null);
+  const [timeValue, timeOnChange] = useState(null);
+  const [caloriesBurned, setCaloriesBurned] = useState(null);
+  const [heartRate, setHeartRate] = useState(null);
+  const [pace, setPace] = useState(null);
 
   const [zoomCenter, setZoomCenter] = useState(null);
 

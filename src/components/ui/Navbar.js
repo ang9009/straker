@@ -4,7 +4,7 @@ import { FiInfo, FiMenu } from "react-icons/fi";
 
 const Navbar = () => {
   return (
-    <nav>
+    <nav id="navbar">
       <div id="logo-container">
         STRAKER
         <a data-tooltip-id="info-tooltip">
@@ -22,7 +22,6 @@ const Navbar = () => {
           </div>
         </Tooltip>
       </div>
-      <FiMenu size={"20px"} style={{ cursor: "pointer" }} />
     </nav>
   );
 };

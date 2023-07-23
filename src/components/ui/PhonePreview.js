@@ -1,16 +1,18 @@
 import "./PhonePreview.css";
 import iphone from "../../assets/iphone_frame.png";
-import screenshot from "../../assets/screenshot.png";
 import battery from "../../assets/battery.svg";
 import cellsignal from "../../assets/cellsignal.svg";
-import { FiChevronLeft } from "react-icons/fi";
+import { FiChevronLeft, FiSearch, FiUser } from "react-icons/fi";
 import { GiRunningShoe } from "react-icons/gi";
-import { PiDotsThreeOutlineLight } from "react-icons/pi";
-import RouteMap from "../form/RouteMap";
+import { BsRecordCircle } from "react-icons/bs";
+import { IoLockClosed } from "react-icons/io5";
+import { PiDotsThreeOutlineLight, PiHouseFill } from "react-icons/pi";
 import { MapContainer, Polyline, TileLayer } from "react-leaflet";
+import { TbCircleArrowUpRightFilled } from "react-icons/tb";
 import Skeleton from "react-loading-skeleton";
 import ChangeView from "../form/ChangeView";
 import dayjs from "dayjs";
+import { addLeadingZero } from "../../utils/addLeadingZero";
 
 const PhonePreview = ({
   profileData,
@@ -43,7 +45,6 @@ const PhonePreview = ({
   return (
     <div id="phone-container">
       <img id="iphone-frame" src={iphone} />
-      <img src={screenshot} alt="" id="screenshot" />
       <div id="phone-screen-container">
         <div id="phone-status-bar">
           <div id="time">1:48</div>
@@ -64,9 +65,7 @@ const PhonePreview = ({
           <div className="user-info">
             <img src={profileData.profileImg} alt="" id="screen-profile-img" />
             <div className="name-and-date">
-              <h1>
-                {profileData.name.length === 0 ? "John Doe" : profileData.name}
-              </h1>
+              <h1>{profileData.name ? profileData.name : "John Doe"}</h1>
               <span>
                 <GiRunningShoe
                   size={"10px"}
@@ -120,44 +119,77 @@ const PhonePreview = ({
             <div>
               <p className="run-data-title">Distance</p>
               <p className="run-data-number">
-                {distance.length === 0 ? "NaN" : `${distance}km`}
+                {distance ? `${distance}km` : "NaN"}
               </p>
             </div>
             <div>
               <p className="run-data-title">Avg Pace</p>
-              <p className="run-data-number">
-                {pace.length === 0 ? "NaN" : `${pace} /km`}
-              </p>
+              <p className="run-data-number">{pace ? `${pace} /km` : "NaN"}</p>
             </div>
             <div>
               <p className="run-data-title">Moving time</p>
               <p className="run-data-number">
                 {timeValue === 0
                   ? "NaN"
-                  : `${dayjs(timeValue).get("hour")}:${dayjs(timeValue).get(
-                      "minute"
-                    )}:${dayjs(timeValue).get("second")}`}
+                  : `${addLeadingZero(
+                      dayjs(timeValue).get("hour")
+                    )}:${addLeadingZero(
+                      dayjs(timeValue).get("minute")
+                    )}:${addLeadingZero(dayjs(timeValue).get("second"))}`}
               </p>
             </div>
             <div>
-              <p className="run-data-title">Distance</p>
-              <p className="run-data-number">6.28km</p>
+              <p className="run-data-title">Elevation Gain</p>
+              <p className="run-data-number">
+                {elevationGain ? `${elevationGain}m` : "NaN"}
+              </p>
             </div>
             <div>
               <p className="run-data-title">Calories</p>
               <p className="run-data-number">
-                {caloriesBurned.length === 0 ? "NaN" : `${caloriesBurned} Cal`}
+                {caloriesBurned ? `${caloriesBurned} Cal` : "NaN"}
               </p>
             </div>
             <div>
               <p className="run-data-title">Avg Heart Rate</p>
               <p className="run-data-number">
-                {heartRate.length === 0 ? "NaN" : `${heartRate} bpm`}
+                {heartRate ? `${heartRate} bpm` : "NaN"}
               </p>
             </div>
           </div>
           <div id="view-analysis-btn">View Analysis</div>
         </div>
+        <div id="private-warning">
+          <IoLockClosed size={"10px"} />{" "}
+          <p>
+            Only you can view this activity. It won't appear on segment<br></br>
+            leaderboards and may not count towards some challenges.
+          </p>
+        </div>
+        <nav id="screen-bottom-nav">
+          <ul>
+            <li>
+              <PiHouseFill size={"22px"} />
+              <p>Feed</p>
+            </li>
+            <li>
+              <FiSearch size={"22px"} />
+              <p>Explore</p>
+            </li>
+            <li>
+              <BsRecordCircle size={"22px"} />
+              <p>Explore</p>
+            </li>
+            <li>
+              <FiUser size={"22px"} />
+              <p>Profile</p>
+            </li>
+            <li>
+              <TbCircleArrowUpRightFilled size={"22px"} />
+              <p>Summit</p>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   );

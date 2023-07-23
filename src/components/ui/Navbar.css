@@ -1,4 +1,4 @@
-nav {
+#navbar {
     height: 50px;
     padding: 20px;
     border-bottom: var(--borderThickness) solid var(--primaryBorderColor);
