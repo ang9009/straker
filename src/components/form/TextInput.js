@@ -28,14 +28,19 @@ const TextInput = ({
           }
         }}
         onChange={(e) => {
-          if (name === "name") {
+          if (name === "name" && !(e.target.value.length > 30)) {
             setContent(e);
             return;
           }
 
-          setContent(e.target.value);
+          if (!(e.target.value.length > 30)) {
+            setContent(e.target.value);
+          }
         }}
       />
+      {content?.length >= 30 && (
+        <p className="error-msg">Maximum character limit reached (30)</p>
+      )}
     </div>
   );
 };
