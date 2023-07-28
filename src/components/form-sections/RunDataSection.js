@@ -18,7 +18,6 @@ const RunDataSection = ({
   setPace,
 }) => {
   useEffect(() => {
-    console.log(value, distance);
     if (value && distance) {
       const pace = getPace(value, distance);
       setPace(pace);

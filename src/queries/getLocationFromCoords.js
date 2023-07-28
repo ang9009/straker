@@ -11,9 +11,7 @@ export const getLocationFromCoords = async ({ lat, lng }) => {
 
       throw new Error(res.error.message);
     })
-    .catch((error) => {
-      console.log(error);
-    });
+    .catch((error) => {});
 
   return result;
 };
